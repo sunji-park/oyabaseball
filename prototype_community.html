@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>야장마차 그라운드 - 엘리트야구 커뮤니티</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&display=swap');
+
+  :root {
+    --primary: #1a237e;
+    --primary-light: #3949ab;
+    --primary-bg: #eef0ff;
+    --accent: #ff6d00;
+    --accent-light: #fff3e0;
+    --dark: #0d1117;
+    --dark-card: #1a1f2e;
+    --dark-surface: #242938;
+    --gray-50: #fafafa;
+    --gray-100: #f5f5f5;
+    --gray-200: #e8e8e8;
+    --gray-300: #d0d0d0;
+    --gray-500: #888;
+    --gray-600: #666;
+    --gray-700: #444;
+    --white: #fff;
+    --red: #e53935;
+    --green: #43a047;
+    --blue: #1e88e5;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Noto Sans KR', -apple-system, sans-serif; background: var(--gray-100); color: var(--gray-700); line-height: 1.6; }
+  a { text-decoration: none; color: inherit; }
+  button { cursor: pointer; border: none; font-family: inherit; }
+  img { max-width: 100%; display: block; }
+
+  /* ===== HEADER ===== */
+  .header { background: var(--white); border-bottom: 1px solid var(--gray-200); position: sticky; top: 0; z-index: 1000; }
+  .header-top { max-width: 1200px; margin: 0 auto; padding: 10px 20px; display: flex; align-items: center; justify-content: space-between; }
+
+  .logo { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+  .logo-icon { width: 38px; height: 38px; background: linear-gradient(135deg, var(--primary), var(--accent)); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 16px; font-weight: 900; }
+  .logo-partner-img { height: 34px; width: 34px; border-radius: 50%; object-fit: cover; }
+  .logo-text { font-size: 18px; font-weight: 900; color: var(--dark); line-height: 1.1; }
+  .logo-text span { color: var(--accent); }
+  .logo-sub { font-size: 10px; color: var(--gray-500); font-weight: 400; }
+
+  .header-search { flex: 1; max-width: 400px; margin: 0 24px; position: relative; }
+  .header-search input { width: 100%; padding: 9px 14px 9px 38px; border: 1px solid var(--gray-200); border-radius: 24px; font-size: 13px; background: var(--gray-50); outline: none; font-family: inherit; transition: all 0.2s; }
+  .header-search input:focus { border-color: var(--primary); background: white; box-shadow: 0 0 0 3px rgba(26,35,126,0.1); }
+  .header-search .si { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); color: var(--gray-500); font-size: 15px; }
+
+  .header-actions { display: flex; align-items: center; gap: 8px; }
+  .btn { padding: 7px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; transition: all 0.2s; display: inline-flex; align-items: center; gap: 5px; }
+  .btn-primary { background: var(--primary); color: white; }
+  .btn-primary:hover { background: var(--primary-light); }
+  .btn-outline { background: transparent; color: var(--gray-600); border: 1px solid var(--gray-200); }
+  .btn-accent { background: var(--accent); color: white; }
+  .btn-accent:hover { background: #e66000; }
+  .noti-btn { position: relative; width: 34px; height: 34px; border-radius: 50%; background: var(--gray-50); border: 1px solid var(--gray-200); display: flex; align-items: center; justify-content: center; font-size: 15px; color: var(--gray-600); }
+  .noti-btn .badge { position: absolute; top: -2px; right: -2px; width: 15px; height: 15px; background: var(--red); color: white; border-radius: 50%; font-size: 9px; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+
+  .main-nav { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; gap: 2px; overflow-x: auto; }
+  .main-nav a { padding: 9px 15px; font-size: 14px; font-weight: 500; color: var(--gray-600); border-bottom: 2px solid transparent; white-space: nowrap; transition: all 0.2s; }
+  .main-nav a:hover { color: var(--primary); }
+  .main-nav a.active { color: var(--primary); border-bottom-color: var(--accent); font-weight: 700; }
+  .new-badge { background: var(--red); color: white; font-size: 9px; padding: 1px 5px; border-radius: 4px; margin-left: 3px; font-weight: 700; vertical-align: top; }
+
+  /* ===== LAYOUT ===== */
+  .container { max-width: 1200px; margin: 0 auto; padding: 20px; display: grid; grid-template-columns: 1fr 320px; gap: 20px; }
+
+  /* ===== HERO ===== */
+  .hero { border-radius: var(--radius); overflow: hidden; position: relative; height: 280px; grid-column: 1 / -1; background: var(--dark); }
+  .hero-slide { position: absolute; inset: 0; opacity: 1; transition: opacity 0.6s; overflow: hidden; display: flex; }
+  .hero-slide.hidden { opacity: 0; pointer-events: none; }
+  .hero-slide-img { width: 50%; height: 100%; object-fit: cover; flex-shrink: 0; background: var(--dark); cursor: pointer; }
+  .hero-overlay { width: 50%; height: 100%; padding: 32px 30px; background: linear-gradient(135deg, #0d1117 0%, #1a1f2e 100%); color: white; display: flex; flex-direction: column; justify-content: center; }
+  .hero-badge { display: inline-block; background: rgba(255,109,0,0.2); color: var(--accent); padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; margin-bottom: 10px; border: 1px solid rgba(255,109,0,0.3); width: fit-content; }
+  .hero-overlay h2 { font-size: 20px; font-weight: 800; line-height: 1.4; margin-bottom: 8px; }
+  .hero-overlay h2 em { color: var(--accent); font-style: normal; }
+  .hero-overlay p { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.5; }
+  .hero-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 34px; height: 34px; border-radius: 50%; background: rgba(0,0,0,0.5); color: white; display: flex; align-items: center; justify-content: center; font-size: 16px; z-index: 10; border: none; }
+  .hero-arrow:hover { background: rgba(0,0,0,0.8); }
+  .hero-arrow.prev { left: 10px; }
+  .hero-arrow.next { right: 10px; }
+  .hero-dots { position: absolute; bottom: 12px; right: 20px; display: flex; gap: 5px; z-index: 10; }
+  .hero-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.3); cursor: pointer; }
+  .hero-dot.active { background: var(--accent); width: 22px; border-radius: 4px; }
+
+  /* ===== HERO AD BANNER ===== */
+  .hero-ad-banner { width: 100%; height: 100%; background: linear-gradient(135deg, #0d1b2a 0%, #1b2838 40%, #1a237e 100%); display: flex; align-items: center; justify-content: center; }
+  .hero-ad-tag { position: absolute; top: 14px; left: 16px; background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.6); font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; letter-spacing: 1px; }
+  .hero-ad-content { display: flex; align-items: center; gap: 32px; padding: 0 60px; }
+  .hero-ad-icon { font-size: 72px; filter: drop-shadow(0 4px 20px rgba(255,109,0,0.3)); }
+  .hero-ad-brand { font-size: 13px; color: var(--accent); font-weight: 700; letter-spacing: 1px; margin-bottom: 6px; }
+  .hero-ad-title { font-size: 26px; font-weight: 900; color: white; line-height: 1.2; margin-bottom: 8px; }
+  .hero-ad-desc { font-size: 14px; color: rgba(255,255,255,0.65); margin-bottom: 16px; }
+  .hero-ad-btn { background: var(--accent); color: white; padding: 10px 24px; border-radius: 8px; font-size: 14px; font-weight: 700; border: none; cursor: pointer; transition: background 0.2s; }
+  .hero-ad-btn:hover { background: #e66000; }
+
+  /* ===== SECTION HEADER ===== */
+  .sec-hd { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .sec-hd h3 { font-size: 17px; font-weight: 700; color: var(--dark); display: flex; align-items: center; gap: 6px; }
+  .sec-hd .more { font-size: 13px; color: var(--gray-500); }
+  .sec-hd .more:hover { color: var(--primary); }
+
+  /* ===== DATE FILTER ===== */
+  .df { display: flex; gap: 5px; margin-bottom: 12px; overflow-x: auto; }
+  .dc { padding: 5px 13px; border-radius: 20px; font-size: 12px; font-weight: 500; background: var(--white); border: 1px solid var(--gray-200); color: var(--gray-600); white-space: nowrap; cursor: pointer; transition: all 0.2s; }
+  .dc:hover { border-color: var(--primary); color: var(--primary); }
+  .dc.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+  /* ===== MATCH CARD (텍스트 중심 + 썸네일) ===== */
+  .mc { background: var(--white); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 12px; box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); transition: all 0.2s; cursor: pointer; display: flex; gap: 14px; align-items: stretch; }
+  .mc:hover { box-shadow: var(--shadow-md); border-color: var(--primary-light); }
+  .mc-thumb { width: 90px; min-height: 80px; border-radius: var(--radius-sm); overflow: hidden; flex-shrink: 0; background: var(--dark); cursor: pointer; }
+  .mc-thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .mc-body { flex: 1; display: flex; flex-direction: column; justify-content: center; min-width: 0; }
+  .mc-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  .mc-teams { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  .mc-ti { display: flex; align-items: center; gap: 7px; flex: 1; }
+  .mc-ti.away { flex-direction: row-reverse; text-align: right; }
+  .mc-badge { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; flex-shrink: 0; color: white; }
+  .mc-badge.hb { background: linear-gradient(135deg, #1a237e, #3949ab); }
+  .mc-badge.ab { background: linear-gradient(135deg, #b71c1c, #e53935); }
+  .mc-tn { font-size: 14px; font-weight: 700; }
+  .mc-sc { display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
+  .mc-sn { font-size: 24px; font-weight: 900; color: var(--dark); width: 28px; text-align: center; }
+  .mc-sn.w { color: var(--accent); }
+  .mc-sep { font-size: 16px; color: var(--gray-300); font-weight: 700; }
+  .mc-ft { display: flex; align-items: center; justify-content: space-between; padding-top: 8px; border-top: 1px solid var(--gray-100); }
+  .mvp-i { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--gray-600); }
+  .mvp-l { background: var(--accent-light); color: var(--accent); padding: 2px 7px; border-radius: 4px; font-weight: 700; font-size: 10px; }
+  .mvp-n { font-weight: 700; color: var(--dark); }
+  .mc-stats { display: flex; gap: 10px; font-size: 11px; color: var(--gray-500); }
+  .league-t { font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 4px; background: var(--primary-bg); color: var(--primary); }
+  .match-d { font-size: 12px; color: var(--gray-500); }
+
+  /* ===== YAJANG CARDS ===== */
+  .yj-feed { margin-top: 20px; }
+  .yj { background: var(--dark-card); border-radius: var(--radius); overflow: hidden; margin-bottom: 14px; transition: all 0.2s; cursor: pointer; }
+  .yj:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+  .yj-hd { background: linear-gradient(135deg, var(--dark), #1e293b); padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; }
+  .yj-brand { display: flex; align-items: center; gap: 7px; color: white; }
+  .yj-logo { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; }
+  .yj-bn { font-size: 13px; font-weight: 700; }
+  .yj-dt { color: rgba(255,255,255,0.5); font-size: 11px; }
+  .yj-content { display: flex; gap: 14px; padding: 14px; align-items: flex-start; }
+  .yj-thumb { width: 110px; height: 110px; border-radius: var(--radius-sm); overflow: hidden; flex-shrink: 0; background: var(--dark); cursor: pointer; }
+  .yj-thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .yj-info { flex: 1; min-width: 0; }
+  .yj-type { display: inline-block; background: rgba(255,109,0,0.2); color: var(--accent); padding: 2px 9px; border-radius: 4px; font-size: 11px; font-weight: 600; margin-bottom: 6px; }
+  .yj-title { font-size: 15px; font-weight: 700; margin-bottom: 5px; line-height: 1.4; color: white; }
+  .yj-desc { font-size: 12px; color: rgba(255,255,255,0.55); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .yj-ft { padding: 8px 14px; border-top: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: space-between; }
+  .yj-rx { display: flex; gap: 12px; }
+  .rx { color: rgba(255,255,255,0.5); font-size: 11px; background: none; border: none; font-family: inherit; cursor: pointer; }
+  .rx:hover { color: var(--accent); }
+  .sh { color: rgba(255,255,255,0.5); font-size: 11px; background: none; border: none; font-family: inherit; cursor: pointer; }
+  .sh:hover { color: white; }
+
+  /* ===== SIDEBAR ===== */
+  .sidebar { display: flex; flex-direction: column; gap: 14px; }
+  .sb { background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); }
+  .sb-hd { padding: 11px 14px; font-size: 14px; font-weight: 700; color: var(--dark); border-bottom: 1px solid var(--gray-100); display: flex; align-items: center; gap: 5px; }
+  .sb-img { width: 100%; cursor: pointer; }
+  .sb-img:hover { opacity: 0.92; }
+
+  .sb-schedule { padding: 10px 14px; }
+  .sb-sch-item { display: flex; align-items: center; gap: 8px; padding: 7px 0; border-bottom: 1px solid var(--gray-100); font-size: 12px; }
+  .sb-sch-item:last-child { border-bottom: none; }
+  .sb-sch-dt { flex-shrink: 0; width: 62px; font-weight: 600; color: var(--primary); font-size: 11px; }
+  .sb-sch-vs { flex: 1; font-weight: 500; color: var(--dark); }
+  .sb-sch-loc { flex-shrink: 0; font-size: 11px; color: var(--gray-500); }
+
+  .sb-rank-tbl { width: 100%; font-size: 12px; border-collapse: collapse; }
+  .sb-rank-tbl thead { background: var(--gray-50); }
+  .sb-rank-tbl th { padding: 7px 6px; font-weight: 600; color: var(--gray-600); text-align: center; font-size: 11px; }
+  .sb-rank-tbl td { padding: 7px 6px; text-align: center; border-bottom: 1px solid var(--gray-100); color: var(--gray-700); }
+  .sb-rank-tbl td:nth-child(2) { text-align: left; font-weight: 500; }
+  .sb-rank-tbl th:nth-child(2) { text-align: left; }
+  .sb-rank-tbl .rank-top td { color: var(--dark); font-weight: 600; }
+  .sb-rank-tbl .rank-top td:first-child { color: var(--accent); font-weight: 700; }
+
+  .sch { padding: 9px 14px; border-bottom: 1px solid var(--gray-100); cursor: pointer; }
+  .sch:hover { background: var(--gray-50); }
+  .sch:last-child { border-bottom: none; }
+  .sch-d { font-size: 11px; color: var(--gray-500); margin-bottom: 2px; }
+  .sch-m { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; }
+  .sch-vs { color: var(--gray-300); font-size: 11px; }
+  .sch-t { margin-left: auto; font-size: 11px; color: var(--accent); font-weight: 500; }
+  .sch-l { font-size: 10px; color: var(--gray-500); margin-top: 1px; }
+
+  .pp { padding: 9px 14px; border-bottom: 1px solid var(--gray-100); cursor: pointer; }
+  .pp:hover { background: var(--gray-50); }
+  .pp:last-child { border-bottom: none; }
+  .pp-cat { font-size: 10px; font-weight: 600; color: var(--primary); background: var(--primary-bg); padding: 2px 7px; border-radius: 4px; display: inline-block; margin-bottom: 2px; }
+  .pp-t { font-size: 13px; font-weight: 500; color: var(--dark); margin-bottom: 2px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .pp-m { font-size: 11px; color: var(--gray-500); display: flex; gap: 8px; }
+
+  .ad { background: linear-gradient(135deg, #1a1f2e, #2d3344); border-radius: var(--radius); padding: 16px; text-align: center; color: white; }
+  .ad-l { font-size: 10px; color: rgba(255,255,255,0.4); margin-bottom: 5px; letter-spacing: 1px; }
+  .ad-t { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
+  .ad-s { font-size: 12px; color: rgba(255,255,255,0.6); }
+
+  /* ===== BOARD ===== */
+  .brd-sec { margin-top: 20px; }
+  .bt { display: flex; gap: 4px; margin-bottom: 12px; background: var(--white); padding: 4px; border-radius: var(--radius-sm); border: 1px solid var(--gray-200); }
+  .bt button { padding: 7px 14px; font-size: 13px; font-weight: 500; color: var(--gray-600); background: transparent; border-radius: 6px; }
+  .bt button:hover { color: var(--primary); }
+  .bt button.active { background: var(--primary); color: white; }
+  .bl { background: var(--white); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--gray-200); }
+  .bi { padding: 11px 16px; border-bottom: 1px solid var(--gray-100); display: flex; align-items: center; gap: 10px; cursor: pointer; }
+  .bi:hover { background: var(--gray-50); }
+  .bc { font-size: 10px; font-weight: 600; padding: 3px 7px; border-radius: 4px; white-space: nowrap; flex-shrink: 0; }
+  .bc.fr { background: #e3f2fd; color: #1565c0; }
+  .bc.pa { background: #fce4ec; color: #c62828; }
+  .bc.in { background: #e8f5e9; color: #2e7d32; }
+  .bc.pl { background: #fff3e0; color: #e65100; }
+  .bi .bt-t { flex: 1; font-size: 14px; font-weight: 500; color: var(--dark); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .cc { color: var(--accent); font-size: 12px; font-weight: 600; margin-left: 4px; }
+  .bi .ba { font-size: 12px; color: var(--gray-500); white-space: nowrap; }
+  .bi .bd { font-size: 12px; color: var(--gray-500); white-space: nowrap; }
+  .bi .bv { font-size: 11px; color: var(--gray-500); white-space: nowrap; }
+
+  /* ===== 경기센터 ===== */
+  .gc-tabs { display: flex; gap: 4px; margin-bottom: 20px; background: var(--white); padding: 4px; border-radius: var(--radius-sm); border: 1px solid var(--gray-200); }
+  .gc-tab { padding: 9px 18px; font-size: 14px; font-weight: 500; color: var(--gray-600); background: transparent; border-radius: 6px; transition: all 0.2s; }
+  .gc-tab:hover { color: var(--primary); }
+  .gc-tab.active { background: var(--primary); color: white; font-weight: 600; }
+  .gc-section { margin-bottom: 24px; }
+  .gc-cat-hd { font-size: 16px; font-weight: 700; color: var(--dark); display: flex; align-items: center; gap: 8px; margin-bottom: 10px; padding: 10px 0; border-bottom: 2px solid var(--gray-200); }
+  .gc-cat-icon { display: inline-flex; width: 28px; height: 28px; border-radius: 6px; align-items: center; justify-content: center; color: white; font-size: 13px; font-weight: 800; }
+  .gc-cat-cnt { font-size: 12px; color: var(--gray-500); font-weight: 400; margin-left: auto; }
+  .gc-list { background: var(--white); border-radius: var(--radius); border: 1px solid var(--gray-200); overflow: hidden; }
+  .gc-item { padding: 13px 16px; border-bottom: 1px solid var(--gray-100); display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: background 0.15s; }
+  .gc-item:last-child { border-bottom: none; }
+  .gc-item:hover { background: var(--gray-50); }
+  .gc-item-left { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; }
+  .gc-num { width: 26px; height: 26px; border-radius: 50%; background: var(--gray-100); color: var(--gray-600); font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .gc-info { flex: 1; min-width: 0; }
+  .gc-name { font-size: 14px; font-weight: 600; color: var(--dark); margin-bottom: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .gc-detail { display: flex; align-items: center; gap: 8px; }
+  .gc-status { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 4px; }
+  .gc-status.live { background: #fce4ec; color: #c62828; }
+  .gc-status.upcoming { background: var(--gray-100); color: var(--gray-500); }
+  .gc-status.done { background: #e8f5e9; color: #2e7d32; }
+  .gc-status.intl { background: #e3f2fd; color: #1565c0; }
+  .gc-games { font-size: 11px; color: var(--gray-500); }
+  .gc-arrow { color: var(--gray-300); font-size: 14px; flex-shrink: 0; }
+  .gc-expand { background: var(--gray-50); border-bottom: 1px solid var(--gray-200); padding: 14px 16px; }
+  .gc-expand-hd { margin-bottom: 10px; }
+
+  /* ===== KBSA 카드 (텍스트 중심 + 썸네일) ===== */
+  .kf { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+  .fs { padding: 7px 12px; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); font-size: 13px; background: white; font-family: inherit; outline: none; cursor: pointer; }
+  .kbsa-mc { background: var(--white); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 12px; box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); display: flex; gap: 14px; align-items: stretch; cursor: pointer; transition: all 0.2s; }
+  .kbsa-mc:hover { box-shadow: var(--shadow-md); border-color: var(--primary-light); }
+  .kbsa-thumb { width: 100px; min-height: 90px; border-radius: var(--radius-sm); overflow: hidden; flex-shrink: 0; background: var(--dark); }
+  .kbsa-thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .kbsa-body { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+
+  /* ===== STANDINGS ===== */
+  .st-full { background: var(--white); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--gray-200); }
+  .st-full table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .st-full th { padding: 11px 14px; text-align: center; font-weight: 600; font-size: 12px; background: var(--primary); color: white; }
+  .st-full td { padding: 11px 14px; text-align: center; border-bottom: 1px solid var(--gray-100); }
+  .st-full tr:hover td { background: var(--gray-50); }
+  .st-full .rk { font-weight: 700; font-size: 15px; }
+  .st-full .rk.g { color: #f9a825; }
+  .st-full .rk.s { color: #78909c; }
+  .st-full .rk.b { color: #a1887f; }
+  .st-full .tc { text-align: left; font-weight: 600; }
+
+  /* ===== MODAL ===== */
+  .mo { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 2000; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+  .mo.show { opacity: 1; pointer-events: all; }
+  .modal { background: white; border-radius: var(--radius); width: 420px; max-width: 90vw; max-height: 90vh; overflow-y: auto; transform: translateY(20px); transition: transform 0.3s; }
+  .mo.show .modal { transform: translateY(0); }
+  .m-hd { padding: 16px 20px; border-bottom: 1px solid var(--gray-200); display: flex; align-items: center; justify-content: space-between; }
+  .m-hd h3 { font-size: 18px; font-weight: 700; }
+  .m-cl { width: 30px; height: 30px; border-radius: 50%; background: var(--gray-100); display: flex; align-items: center; justify-content: center; font-size: 15px; color: var(--gray-600); cursor: pointer; border: none; }
+  .m-bd { padding: 20px; }
+  .fg { margin-bottom: 14px; }
+  .fg label { display: block; font-size: 13px; font-weight: 600; color: var(--gray-700); margin-bottom: 4px; }
+  .fg input, .fg select { width: 100%; padding: 9px 12px; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); font-size: 14px; font-family: inherit; outline: none; }
+  .fg input:focus, .fg select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(26,35,126,0.1); }
+  .fd { display: flex; align-items: center; gap: 12px; margin: 16px 0; font-size: 12px; color: var(--gray-500); }
+  .fd::before, .fd::after { content: ''; flex: 1; height: 1px; background: var(--gray-200); }
+  .sl { display: flex; flex-direction: column; gap: 8px; }
+  .sb-btn { width: 100%; padding: 10px; border-radius: var(--radius-sm); font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .sb-btn:hover { opacity: 0.9; }
+  .sb-btn.kk { background: #fee500; color: #191919; }
+  .sb-btn.nv { background: #03c75a; color: white; }
+  .sb-btn.gg { background: white; color: #333; border: 1px solid var(--gray-200); }
+  .m-ft { padding: 12px 20px; border-top: 1px solid var(--gray-200); text-align: center; }
+  .m-ft .btn { width: 100%; padding: 11px; font-size: 15px; }
+
+  /* ===== LIGHTBOX ===== */
+  .lb { position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 3000; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s; cursor: zoom-out; }
+  .lb.show { opacity: 1; pointer-events: all; }
+  .lb img { max-width: 92vw; max-height: 92vh; object-fit: contain; border-radius: 8px; }
+  .lb-cl { position: absolute; top: 16px; right: 16px; width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,0.2); color: white; font-size: 22px; display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; }
+
+  /* ===== FOOTER ===== */
+  .site-ft { background: var(--dark); color: rgba(255,255,255,0.5); padding: 24px 20px; margin-top: 30px; }
+  .ft-in { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
+  .ft-logos { display: flex; align-items: center; gap: 10px; }
+  .ft-logos img { height: 28px; border-radius: 50%; }
+  .ft-txt { font-size: 12px; line-height: 1.6; }
+  .ft-links { display: flex; gap: 14px; font-size: 12px; }
+  .ft-links a { color: rgba(255,255,255,0.6); }
+  .ft-links a:hover { color: white; }
+
+  .page-section { display: none; }
+  .page-section.active { display: block; }
+
+  .live-dot { width: 8px; height: 8px; background: var(--red); border-radius: 50%; display: inline-block; animation: blink 1.5s infinite; }
+  @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+
+  @media (max-width: 900px) {
+    .container { grid-template-columns: 1fr; }
+    .hero { height: 260px; }
+    .sidebar { order: -1; }
+  }
+  @media (max-width: 600px) {
+    .header-search { display: none; }
+    .bi .ba, .bi .bv { display: none; }
+    .hero { height: 220px; }
+    .mc-thumb { width: 70px; }
+    .yj-thumb { width: 80px; height: 80px; }
+    .kbsa-thumb { width: 80px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb" onclick="closeLB()">
+  <button class="lb-cl" onclick="closeLB()">&#10005;</button>
+  <img id="lbImg" src="" alt="">
+</div>
+
+<!-- ===== HEADER ===== -->
+<header class="header">
+  <div class="header-top">
+    <div class="logo" onclick="showPage('home')">
+      <img src="sample_images/logo.png" alt="오늘부터아마야구" class="logo-partner-img">
+      <div>
+        <div class="logo-text">야장마차 <span>그라운드</span></div>
+        <div class="logo-sub">엘리트야구 커뮤니티</div>
+      </div>
+    </div>
+    <div class="header-search">
+      <span class="si">&#128269;</span>
+      <input type="text" placeholder="선수, 학교, 경기 검색...">
+    </div>
+    <div class="header-actions">
+      <button class="noti-btn" title="알림">&#128276;<span class="badge">3</span></button>
+      <button class="btn btn-outline" onclick="openMo('loginMo')">로그인</button>
+      <button class="btn btn-accent" onclick="openMo('signupMo')">회원가입</button>
+    </div>
+  </div>
+  <nav class="main-nav">
+    <a href="#" class="active" onclick="showPage('home',this)">홈</a>
+    <a href="#" onclick="showPage('yajang',this)">야장마차 <span class="new-badge">NEW</span></a>
+    <a href="#" onclick="showPage('kbsa',this)">경기센터</a>
+    <a href="#" onclick="showPage('board',this)">엘리트야구 게시판</a>
+    <a href="#" onclick="showPage('standings',this)">리그 순위</a>
+  </nav>
+</header>
+
+<!-- ============================================================ -->
+<!-- HOME -->
+<!-- ============================================================ -->
+<div class="page-section active" id="page-home">
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero" id="heroSlider">
+    <div class="hero-slide" id="s0">
+      <img src="sample_images/001.png" class="hero-slide-img" onclick="openLB2('sample_images/001.png')" alt="">
+      <div class="hero-overlay">
+        <div class="hero-badge"><span class="live-dot"></span>&nbsp; LIVE 결과</div>
+        <h2>2026 고교야구 주말리그 <em>전반기 결과</em></h2>
+        <p>서울고 1:2 경기상고, 광주고 9:8 산의고, 서울디지텍고 2:0 산의고 외 다수 경기 결과 종합</p>
+      </div>
+    </div>
+    <div class="hero-slide hidden" id="s1">
+      <div class="hero-ad-banner">
+        <div class="hero-ad-tag">AD</div>
+        <div class="hero-ad-content">
+          <div class="hero-ad-icon">&#9918;</div>
+          <div class="hero-ad-info">
+            <div class="hero-ad-brand">KROSS 크로스베이스볼</div>
+            <div class="hero-ad-title">2026 시즌 신상 장비 출시!</div>
+            <div class="hero-ad-desc">엘리트 선수를 위한 프리미엄 배트 · 글러브 · 스파이크</div>
+            <button class="hero-ad-btn">자세히 보기 &rarr;</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-slide hidden" id="s2">
+      <img src="sample_images/006.png" class="hero-slide-img" onclick="openLB2('sample_images/006.png')" alt="">
+      <div class="hero-overlay">
+        <div class="hero-badge">&#128240; 야장마차</div>
+        <h2>'김민혁 11K·임재경 올 퍼펙트' <em>전흥, 화순 잡아</em></h2>
+        <p>고교야구 주말리그 전반기 하이라이트 종합 — 주요 투수 성적과 경기 분석</p>
+      </div>
+    </div>
+    <div class="hero-slide hidden" id="s3">
+      <img src="sample_images/004.png" class="hero-slide-img" onclick="openLB2('sample_images/004.png')" alt="">
+      <div class="hero-overlay">
+        <div class="hero-badge">&#128200; U-15</div>
+        <h2>U-15 상반기 <em>전국주니어야구대회</em></h2>
+        <p>광명시 13:0 천안시 (콜드승), 원목·용인 4:4 무승부 외 조별리그 전체 결과</p>
+      </div>
+    </div>
+    <button class="hero-arrow prev" onclick="prevS()">&#10094;</button>
+    <button class="hero-arrow next" onclick="nextS()">&#10095;</button>
+    <div class="hero-dots"><div class="hero-dot active" onclick="goS(0)"></div><div class="hero-dot" onclick="goS(1)"></div><div class="hero-dot" onclick="goS(2)"></div><div class="hero-dot" onclick="goS(3)"></div></div>
+  </div>
+
+  <!-- MAIN -->
+  <div>
+
+    <!-- 오늘의 경기 결과 -->
+    <div class="sec-hd"><h3>&#9918; 오늘의 경기 결과</h3><a href="#" class="more" onclick="showPage('kbsa',document.querySelector('.main-nav a:nth-child(3)'))">전체보기 &rarr;</a></div>
+    <div class="df">
+      <div class="dc">3/13 (목)</div><div class="dc">3/14 (금)</div><div class="dc active">3/15 (토)</div><div class="dc">3/16 (일)</div>
+    </div>
+
+    <!-- 포항제철고 vs 도기고 -->
+    <div class="mc">
+      <div class="mc-thumb" onclick="openLB2('sample_images/007.png')"><img src="sample_images/007.png" alt=""></div>
+      <div class="mc-body">
+        <div class="mc-meta"><span class="league-t">고교 주말리그 (전반기)</span><span class="match-d">3/15 (토)</span></div>
+        <div class="mc-teams">
+          <div class="mc-ti"><div class="mc-badge hb">포</div><span class="mc-tn">포항제철고</span></div>
+          <div class="mc-sc"><span class="mc-sn w">5</span><span class="mc-sep">:</span><span class="mc-sn">1</span></div>
+          <div class="mc-ti away"><div class="mc-badge ab">도</div><span class="mc-tn">도기고</span></div>
+        </div>
+        <div class="mc-ft">
+          <div class="mvp-i"><span class="mvp-l">MVP</span><span class="mvp-n">이규도</span> 4이닝 3실점</div>
+          <div class="mc-stats"><span>&#128065; 2.4k</span><span>&#128172; 56</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 서울고 vs 경기상고 -->
+    <div class="mc">
+      <div class="mc-thumb" onclick="openLB2('sample_images/008.png')"><img src="sample_images/008.png" alt=""></div>
+      <div class="mc-body">
+        <div class="mc-meta"><span class="league-t">고교 주말리그 (전반기)</span><span class="match-d">3/15 (토)</span></div>
+        <div class="mc-teams">
+          <div class="mc-ti"><div class="mc-badge hb">서</div><span class="mc-tn">서울고</span></div>
+          <div class="mc-sc"><span class="mc-sn">1</span><span class="mc-sep">:</span><span class="mc-sn w">2</span></div>
+          <div class="mc-ti away"><div class="mc-badge ab">경</div><span class="mc-tn">경기상고</span></div>
+        </div>
+        <div class="mc-ft">
+          <div class="mvp-i"><span class="mvp-l">MVP</span><span class="mvp-n">김승현</span> 에이스 완투</div>
+          <div class="mc-stats"><span>&#128065; 1.8k</span><span>&#128172; 31</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- U-15 -->
+    <div class="mc">
+      <div class="mc-thumb" onclick="openLB2('sample_images/004.png')"><img src="sample_images/004.png" alt=""></div>
+      <div class="mc-body">
+        <div class="mc-meta"><span class="league-t" style="background:#e8f5e9;color:#2e7d32;">U-15 전국주니어대회</span><span class="match-d">3/15 (토)</span></div>
+        <div class="mc-teams">
+          <div class="mc-ti"><div class="mc-badge hb" style="background:linear-gradient(135deg,#1b5e20,#43a047);">광</div><span class="mc-tn">광명시</span></div>
+          <div class="mc-sc"><span class="mc-sn w">13</span><span class="mc-sep">:</span><span class="mc-sn">0</span></div>
+          <div class="mc-ti away"><div class="mc-badge ab">천</div><span class="mc-tn">천안시</span></div>
+        </div>
+        <div class="mc-ft">
+          <div class="mvp-i"><span style="font-size:11px;color:var(--red);font-weight:600;">콜드게임</span> 5이닝</div>
+          <div class="mc-stats"><span>&#128065; 756</span><span>&#128172; 9</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 야장마차 최신 콘텐츠 -->
+    <div class="yj-feed">
+      <div class="sec-hd"><h3>&#128240; 야장마차 최신 콘텐츠</h3><a href="#" class="more" onclick="showPage('yajang',document.querySelector('.main-nav a:nth-child(2)'))">전체보기 &rarr;</a></div>
+
+      <div class="yj">
+        <div class="yj-hd"><div class="yj-brand"><img src="sample_images/logo.png" class="yj-logo"><span class="yj-bn">야장마차</span></div><span class="yj-dt">2026.03.15</span></div>
+        <div class="yj-content">
+          <div class="yj-thumb" onclick="openLB2('sample_images/images.jpg')"><img src="sample_images/images.jpg" alt=""></div>
+          <div class="yj-info"><div class="yj-type">야장마차 뉴스</div><div class="yj-title">'황우경 끝내기 2루타' 소격, 극적으로 연장 끝 끝났다</div><div class="yj-desc">소격 vs 광주 연장전 승부, 이 경기의 모든 하이라이트와 주요 기록 정리</div></div>
+        </div>
+        <div class="yj-ft"><div class="yj-rx"><span class="rx">&#10084;&#65039; 456</span><span class="rx">&#128172; 72</span><span class="rx">&#128065; 3.1k</span></div><button class="sh">&#128279; 공유</button></div>
+      </div>
+
+      <div class="yj">
+        <div class="yj-hd"><div class="yj-brand"><img src="sample_images/logo.png" class="yj-logo"><span class="yj-bn">야장마차</span></div><span class="yj-dt">2026.03.15</span></div>
+        <div class="yj-content">
+          <div class="yj-thumb" onclick="openLB2('sample_images/006.png')"><img src="sample_images/006.png" alt=""></div>
+          <div class="yj-info"><div class="yj-type">야장마차 뉴스</div><div class="yj-title">'김민혁 11K·임재경 올 퍼펙트' 전흥, 연장 끝에 화순 잡아</div><div class="yj-desc">2026 고교야구 주말리그 전반기 주요 경기 결과와 하이라이트</div></div>
+        </div>
+        <div class="yj-ft"><div class="yj-rx"><span class="rx">&#10084;&#65039; 342</span><span class="rx">&#128172; 56</span><span class="rx">&#128065; 2.4k</span></div><button class="sh">&#128279; 공유</button></div>
+      </div>
+
+      <div class="yj">
+        <div class="yj-hd"><div class="yj-brand"><img src="sample_images/logo.png" class="yj-logo"><span class="yj-bn">야장마차</span></div><span class="yj-dt">2026.03.14</span></div>
+        <div class="yj-content">
+          <div class="yj-thumb" onclick="openLB2('sample_images/002.png')"><img src="sample_images/002.png" alt=""></div>
+          <div class="yj-info"><div class="yj-type" style="background:rgba(76,175,80,0.2);color:#43a047;">선수 하이라이트</div><div class="yj-title">신승민, 사이클 히트 달성! (NMMI 2학년)</div><div class="yj-desc">1회 안타 / 3회 홈런 / 3회 2루타 / 5회 3루타</div></div>
+        </div>
+        <div class="yj-ft"><div class="yj-rx"><span class="rx">&#10084;&#65039; 892</span><span class="rx">&#128172; 124</span><span class="rx">&#128065; 5.6k</span></div><button class="sh">&#128279; 공유</button></div>
+      </div>
+    </div>
+
+    <!-- 게시판 미리보기 -->
+    <div class="brd-sec">
+      <div class="sec-hd"><h3>&#128172; 엘리트야구 게시판</h3><a href="#" class="more" onclick="showPage('board',document.querySelector('.main-nav a:nth-child(4)'))">전체보기 &rarr;</a></div>
+      <div class="bl">
+        <div class="bi"><span class="bc pa">학부모</span><span class="bt-t">고1 아들 주말리그 첫 선발 등판했네요 <span class="cc">[32]</span></span><span class="ba">야구맘서울</span><span class="bd">03.15</span><span class="bv">&#128065; 1,204</span></div>
+        <div class="bi"><span class="bc in">대회정보</span><span class="bt-t">2026 U-15 상반기 전국주니어야구대회 일정 및 대진표 <span class="cc">[15]</span></span><span class="ba">야구정보통</span><span class="bd">03.14</span><span class="bv">&#128065; 2,847</span></div>
+        <div class="bi"><span class="bc fr">자유</span><span class="bt-t">오늘 포항제철고 경기 보신 분? 박상아 홈런 대박이었음 <span class="cc">[28]</span></span><span class="ba">야구팬0315</span><span class="bd">03.15</span><span class="bv">&#128065; 956</span></div>
+        <div class="bi"><span class="bc pl">선수정보</span><span class="bt-t">경기상고 김승현 투수 스탯 정리 (주말리그 전반기) <span class="cc">[11]</span></span><span class="ba">스카우트매니아</span><span class="bd">03.15</span><span class="bv">&#128065; 1,532</span></div>
+        <div class="bi"><span class="bc pa">학부모</span><span class="bt-t">중학교 야구부 입부 관련 질문드립니다 <span class="cc">[45]</span></span><span class="ba">예비야구맘</span><span class="bd">03.14</span><span class="bv">&#128065; 3,102</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sb">
+      <div class="sb-hd">&#128197; 후반기 충청권 일정</div>
+      <div class="sb-schedule">
+        <div class="sb-sch-item"><span class="sb-sch-dt">4/12 (토)</span><span class="sb-sch-vs">충남고 vs 대전고</span><span class="sb-sch-loc">한밭구장</span></div>
+        <div class="sb-sch-item"><span class="sb-sch-dt">4/12 (토)</span><span class="sb-sch-vs">공주고 vs 세종고</span><span class="sb-sch-loc">공주구장</span></div>
+        <div class="sb-sch-item"><span class="sb-sch-dt">4/13 (일)</span><span class="sb-sch-vs">천안북일고 vs 논산고</span><span class="sb-sch-loc">천안구장</span></div>
+        <div class="sb-sch-item"><span class="sb-sch-dt">4/13 (일)</span><span class="sb-sch-vs">대전동산고 vs 충주고</span><span class="sb-sch-loc">대전구장</span></div>
+        <div class="sb-sch-item"><span class="sb-sch-dt">4/19 (토)</span><span class="sb-sch-vs">대전고 vs 공주고</span><span class="sb-sch-loc">한밭구장</span></div>
+      </div>
+    </div>
+    <div class="sb">
+      <div class="sb-hd">&#127942; 충청권 순위 (전반기)</div>
+      <table class="sb-rank-tbl">
+        <thead><tr><th>#</th><th>학교</th><th>경기</th><th>승</th><th>패</th><th>승률</th></tr></thead>
+        <tbody>
+          <tr class="rank-top"><td>1</td><td>충남고</td><td>10</td><td>8</td><td>2</td><td>.800</td></tr>
+          <tr class="rank-top"><td>2</td><td>대전고</td><td>10</td><td>7</td><td>3</td><td>.700</td></tr>
+          <tr class="rank-top"><td>3</td><td>천안북일고</td><td>10</td><td>6</td><td>4</td><td>.600</td></tr>
+          <tr><td>4</td><td>공주고</td><td>10</td><td>5</td><td>5</td><td>.500</td></tr>
+          <tr><td>5</td><td>대전동산고</td><td>10</td><td>4</td><td>6</td><td>.400</td></tr>
+          <tr><td>6</td><td>논산고</td><td>10</td><td>3</td><td>7</td><td>.300</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sb">
+      <div class="sb-hd">&#128293; 인기 게시글</div>
+      <div class="pp"><span class="pp-cat">학부모</span><div class="pp-t">중학교 야구부 입부 관련 질문드립니다</div><div class="pp-m"><span>&#128172; 45</span><span>&#128065; 3,102</span></div></div>
+      <div class="pp"><span class="pp-cat">대회정보</span><div class="pp-t">U-15 전국주니어야구대회 일정 및 대진표</div><div class="pp-m"><span>&#128172; 15</span><span>&#128065; 2,847</span></div></div>
+      <div class="pp"><span class="pp-cat">선수정보</span><div class="pp-t">경기상고 김승현 투수 스탯 정리</div><div class="pp-m"><span>&#128172; 11</span><span>&#128065; 1,532</span></div></div>
+    </div>
+    <div class="ad"><div class="ad-l">SPONSORED</div><div class="ad-t">&#9918; KROSS 크로스베이스볼</div><div class="ad-s">엘리트 선수를 위한 프리미엄 야구 장비</div></div>
+    <div class="ad" style="background:linear-gradient(135deg,#1b5e20,#388e3c);"><div class="ad-l">SPONSORED</div><div class="ad-t">&#128170; BODY SCIENCE</div><div class="ad-s">선수 컨디션 관리의 새로운 기준</div></div>
+  </div>
+
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- YAJANG (풀 이미지) -->
+<!-- ============================================================ -->
+<div class="page-section" id="page-yajang">
+<div class="container" style="display:block;max-width:800px;margin:0 auto;">
+  <div class="sec-hd"><h3><img src="sample_images/logo.png" style="width:30px;height:30px;border-radius:50%;object-fit:cover;display:inline-block;" alt=""> 야장마차 콘텐츠</h3></div>
+  <div class="df"><div class="dc active">전체</div><div class="dc">경기 결과</div><div class="dc">MVP</div><div class="dc">하이라이트</div><div class="dc">야장마차 뉴스</div><div class="dc">순위표</div></div>
+
+  <div class="yj"><div class="yj-hd"><div class="yj-brand"><img src="sample_images/logo.png" class="yj-logo"><span class="yj-bn">야장마차</span></div><span class="yj-dt">2026.03.15</span></div>
+    <div style="padding:0;"><img src="sample_images/001.png" style="width:100%;cursor:pointer;" onclick="openLB2('sample_images/001.png')" alt=""></div>
+    <div class="yj-content" style="padding-top:0;"><div class="yj-info" style="padding-top:10px;"><div class="yj-type">경기 결과</div><div class="yj-title">2026 고교야구 주말리그 전반기 3월 15일 경기 결과 종합</div><div class="yj-desc">서울고 1:2 경기상고, 광주고 9:8 산의고, 서울디지텍고 2:0 산의고 외</div></div></div>
+    <div class="yj-ft"><div class="yj-rx"><span class="rx">&#10084;&#65039; 542</span><span class="rx">&#128172; 87</span><span class="rx">&#128065; 4.2k</span></div><button class="sh">&#128279; 공유</button></div>
+  </div>
+
+  <div class="yj"><div class="yj-hd"><div class="yj-brand"><img src="sample_images/logo.png" class="yj-logo"><span class="yj-bn">야장마차</span></div><span class="yj-dt">2026.03.15</span></div>
+    <div style="padding:0;"><img src="sample_images/007.png" style="width:100%;cursor:pointer;" onclick="openLB2('sample_images/007.png')" alt=""></div>
+    <div class="yj-content" style="padding-top:0;"><div class="yj-info" style="padding-top:10px;"><div class="yj-type">경기 결과</div><div class="yj-title">포항제철고 5:1 도기고 — 박상아 3타점 홈런, MVP 이규도</div><div class="yj-desc">박상아 선수가 3회 3타점 홈런을 기록하며 포항제철고의 대승을 이끌었습니다.</div></div></div>
+    <div class="yj-ft"><div class="yj-rx"><span class="rx">&#10084;&#65039; 342</span><span class="rx">&#128172; 56</span><span class="rx">&#128065; 2.4k</span></div><button class="sh">&#128279; 공유</button></div>
+  </div>
+
+  <div class="yj"><div class="yj-hd"><div class="yj-brand"><img src="sample_images/logo.png" class="yj-logo"><span class="yj-bn">야장마차</span></div><span class="yj-dt">2026.03.15</span></div>
+    <div style="padding:0;"><img src="sample_images/008.png" style="width:100%;cursor:pointer;" onclick="openLB2('sample_images/008.png')" alt=""></div>
+    <div class="yj-content" style="padding-top:0;"><div class="yj-info" style="padding-top:10px;"><div class="yj-type">경기 결과</div><div class="yj-title">서울고 1:2 경기상고 — MVP 김승현, 에이스 완투 포스</div><div class="yj-desc">경기상고 김승현 투수가 에이스다운 완투로 서울고를 잡았습니다.</div></div></div>
+    <div class="yj-ft"><div class="yj-rx"><span class="rx">&#10084;&#65039; 218</span><span class="rx">&#128172; 31</span><span class="rx">&#128065; 1.8k</span></div><button class="sh">&#128279; 공유</button></div>
+  </div>
+
+  <div class="yj"><div class="yj-hd"><div class="yj-brand"><img src="sample_images/logo.png" class="yj-logo"><span class="yj-bn">야장마차</span></div><span class="yj-dt">2026.03.15</span></div>
+    <div style="padding:0;"><img src="sample_images/images.jpg" style="width:100%;cursor:pointer;" onclick="openLB2('sample_images/images.jpg')" alt=""></div>
+    <div class="yj-content" style="padding-top:0;"><div class="yj-info" style="padding-top:10px;"><div class="yj-type">야장마차 뉴스</div><div class="yj-title">'황우경 끝내기 2루타' 소격, 극적으로 연장 끝 끝났다</div><div class="yj-desc">소격 vs 광주 연장전 승부, 이 경기의 모든 하이라이트와 주요 기록</div></div></div>
+    <div class="yj-ft"><div class="yj-rx"><span class="rx">&#10084;&#65039; 456</span><span class="rx">&#128172; 72</span><span class="rx">&#128065; 3.1k</span></div><button class="sh">&#128279; 공유</button></div>
+  </div>
+
+  <div class="yj"><div class="yj-hd"><div class="yj-brand"><img src="sample_images/logo.png" class="yj-logo"><span class="yj-bn">야장마차</span></div><span class="yj-dt">2026.03.15</span></div>
+    <div style="padding:0;"><img src="sample_images/006.png" style="width:100%;cursor:pointer;" onclick="openLB2('sample_images/006.png')" alt=""></div>
+    <div class="yj-content" style="padding-top:0;"><div class="yj-info" style="padding-top:10px;"><div class="yj-type">야장마차 뉴스</div><div class="yj-title">'김민혁 11K·임재경 올 퍼펙트' 전흥, 연장 끝에 화순 잡아</div><div class="yj-desc">2026 고교야구 주말리그 전반기 주요 경기 결과와 하이라이트</div></div></div>
+    <div class="yj-ft"><div class="yj-rx"><span class="rx">&#10084;&#65039; 342</span><span class="rx">&#128172; 56</span><span class="rx">&#128065; 2.4k</span></div><button class="sh">&#128279; 공유</button></div>
+  </div>
+
+  <div class="yj"><div class="yj-hd"><div class="yj-brand"><img src="sample_images/logo.png" class="yj-logo"><span class="yj-bn">야장마차</span></div><span class="yj-dt">2026.03.14</span></div>
+    <div style="padding:0;"><img src="sample_images/002.png" style="width:100%;cursor:pointer;" onclick="openLB2('sample_images/002.png')" alt=""></div>
+    <div class="yj-content" style="padding-top:0;"><div class="yj-info" style="padding-top:10px;"><div class="yj-type" style="background:rgba(76,175,80,0.2);color:#43a047;">선수 하이라이트</div><div class="yj-title">신승민, 사이클 히트 달성! (NMMI 2학년)</div><div class="yj-desc">1회 안타 / 3회 홈런 / 3회 2루타 / 5회 3루타</div></div></div>
+    <div class="yj-ft"><div class="yj-rx"><span class="rx">&#10084;&#65039; 892</span><span class="rx">&#128172; 124</span><span class="rx">&#128065; 5.6k</span></div><button class="sh">&#128279; 공유</button></div>
+  </div>
+
+  <div class="yj"><div class="yj-hd"><div class="yj-brand"><img src="sample_images/logo.png" class="yj-logo"><span class="yj-bn">야장마차</span></div><span class="yj-dt">2026.03.15</span></div>
+    <div style="padding:0;"><img src="sample_images/004.png" style="width:100%;cursor:pointer;" onclick="openLB2('sample_images/004.png')" alt=""></div>
+    <div class="yj-content" style="padding-top:0;"><div class="yj-info" style="padding-top:10px;"><div class="yj-type" style="background:rgba(30,136,229,0.2);color:#1e88e5;">U-15 대회</div><div class="yj-title">2026 U-15 상반기 전국주니어야구대회 결과</div><div class="yj-desc">광명시 13:0 천안시, 원목·용인 4:4 무승부</div></div></div>
+    <div class="yj-ft"><div class="yj-rx"><span class="rx">&#10084;&#65039; 198</span><span class="rx">&#128172; 24</span><span class="rx">&#128065; 1.5k</span></div><button class="sh">&#128279; 공유</button></div>
+  </div>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 경기센터 (대회별 구성) -->
+<!-- ============================================================ -->
+<div class="page-section" id="page-kbsa">
+<div class="container" style="display:block;">
+  <div class="sec-hd"><h3>&#127919; 경기센터</h3></div>
+
+  <!-- 카테고리 탭 -->
+  <div class="gc-tabs">
+    <button class="gc-tab active" onclick="showCat('all',this)">전체</button>
+    <button class="gc-tab" onclick="showCat('elem',this)">&#9918; 초등야구</button>
+    <button class="gc-tab" onclick="showCat('mid',this)">&#9918; 중학야구</button>
+    <button class="gc-tab" onclick="showCat('high',this)">&#9918; 고교야구</button>
+  </div>
+
+  <!-- ===== 초등야구 ===== -->
+  <div class="gc-section" data-cat="elem">
+    <div class="gc-cat-hd"><span class="gc-cat-icon" style="background:#43a047;">초</span> 초등야구 <span class="gc-cat-cnt">6개 대회</span></div>
+    <div class="gc-list">
+      <div class="gc-item" onclick="openTourney(this)">
+        <div class="gc-item-left">
+          <div class="gc-num">1</div>
+          <div class="gc-info">
+            <div class="gc-name">제 22회 흥타령기 전국초등야구대회</div>
+            <div class="gc-detail"><span class="gc-status upcoming">일정 미정</span></div>
+          </div>
+        </div>
+        <div class="gc-arrow">&#10095;</div>
+      </div>
+      <div class="gc-item" onclick="openTourney(this)">
+        <div class="gc-item-left">
+          <div class="gc-num">2</div>
+          <div class="gc-info">
+            <div class="gc-name">제 3회 대통령배 전국유소년야구대회</div>
+            <div class="gc-detail"><span class="gc-status upcoming">일정 미정</span></div>
+          </div>
+        </div>
+        <div class="gc-arrow">&#10095;</div>
+      </div>
+      <div class="gc-item" onclick="openTourney(this)">
+        <div class="gc-item-left">
+          <div class="gc-num">3</div>
+          <div class="gc-info">
+            <div class="gc-name">제 55회 전국소년체육대회</div>
+            <div class="gc-detail"><span class="gc-status upcoming">일정 미정</span></div>
+          </div>
+        </div>
+        <div class="gc-arrow">&#10095;</div>
+      </div>
+      <div class="gc-item" onclick="openTourney(this)">
+        <div class="gc-item-left">
+          <div class="gc-num">4</div>
+          <div class="gc-info">
+            <div class="gc-name">2026 U-12 전국 유소년 야구대회</div>
+            <div class="gc-detail"><span class="gc-status upcoming">일정 미정</span></div>
+          </div>
+        </div>
+        <div class="gc-arrow">&#10095;</div>
+      </div>
+      <div class="gc-item" onclick="openTourney(this)">
+        <div class="gc-item-left">
+          <div class="gc-num">5</div>
+          <div class="gc-info">
+            <div class="gc-name">제 56회 회장기 전국초등야구대회</div>
+            <div class="gc-detail"><span class="gc-status upcoming">일정 미정</span></div>
+          </div>
+        </div>
+        <div class="gc-arrow">&#10095;</div>
+      </div>
+      <div class="gc-item" onclick="openTourney(this)">
+        <div class="gc-item-left">
+          <div class="gc-num">6</div>
+          <div class="gc-info">
+            <div class="gc-name">제 24회 박찬호기 전국초등야구대회</div>
+            <div class="gc-detail"><span class="gc-status upcoming">일정 미정</span></div>
+          </div>
+        </div>
+        <div class="gc-arrow">&#10095;</div>
+      </div>
+      <div class="gc-item" onclick="openTourney(this)">
+        <div class="gc-item-left">
+          <div class="gc-num">7</div>
+          <div class="gc-info">
+            <div class="gc-name">제 12회 BFA U-12 아시아 야구 챔피언십</div>
+            <div class="gc-detail"><span class="gc-status intl">국제대회</span></div>
+          </div>
+        </div>
+        <div class="gc-arrow">&#10095;</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 중학야구 ===== -->
+  <div class="gc-section" data-cat="mid">
+    <div class="gc-cat-hd"><span class="gc-cat-icon" style="background:#1e88e5;">중</span> 중학야구 <span class="gc-cat-cnt">6개 대회</span></div>
+    <div class="gc-list">
+      <div class="gc-item" onclick="openTourney(this)">
+        <div class="gc-item-left">
+          <div class="gc-num">1</div>
+          <div class="gc-info">
+            <div class="gc-name">제 55회 전국소년체육대회</div>
+            <div class="gc-detail"><span class="gc-status upcoming">일정 미정</span></div>
+          </div>
+        </div>
+        <div class="gc-arrow">&#10095;</div>
+      </div>
+      <div class="gc-item" onclick="openTourney(this)">
+        <div class="gc-item-left">
+          <div class="gc-num">2</div>
+          <div class="gc-info">
+            <div class="gc-name">제 73회 전국중학야구 선수권대회 (경주)</div>
+            <div class="gc-detail"><span class="gc-status upcoming">일정 미정</span></div>
+          </div>
+        </div>
+        <div class="gc-arrow">&#10095;</div>
+      </div>
+      <div class="gc-item" onclick="openTourney(this)">
+        <div class="gc-item-left">
+          <div class="gc-num">3</div>
+          <div class="gc-info">
+            <div class="gc-name">제 73회 전국중학야구 선수권대회 (보은)</div>
+            <div class="gc-detail"><span class="gc-status upcoming">일정 미정</span></div>
+          </div>
+        </div>
+        <div class="gc-arrow">&#10095;</div>
+      </div>
+      <div class="gc-item" onclick="openTourney(this)">
+        <div class="gc-item-left">
+          <div class="gc-num">4</div>
+          <div class="gc-info">
+            <div class="gc-name">제 56회 대통령기 전국중학야구대회</div>
+            <div class="gc-detail"><span class="gc-status upcoming">일정 미정</span></div>
+          </div>
+        </div>
+        <div class="gc-arrow">&#10095;</div>
+      </div>
+      <div class="gc-item" onclick="openTourney(this)">
+        <div class="gc-item-left">
+          <div class="gc-num">5</div>
+          <div class="gc-info">
+            <div class="gc-name">제 5회 백호기 전국중학야구대회</div>
+            <div class="gc-detail"><span class="gc-status upcoming">일정 미정</span></div>
+          </div>
+        </div>
+        <div class="gc-arrow">&#10095;</div>
+      </div>
+      <div class="gc-item" onclick="openTourney(this)">
+        <div class="gc-item-left">
+          <div class="gc-num">6</div>
+          <div class="gc-info">
+            <div class="gc-name">2026 U-15 전국유소년야구대회</div>
+            <div class="gc-detail"><span class="gc-status live">진행중</span><span class="gc-games">4경기 완료</span></div>
+          </div>
+        </div>
+        <div class="gc-arrow">&#10095;</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 고교야구 ===== -->
+  <div class="gc-section" data-cat="high">
+    <div class="gc-cat-hd"><span class="gc-cat-icon" style="background:var(--accent);">고</span> 고교야구 <span class="gc-cat-cnt">9개 대회</span></div>
+    <div class="gc-list">
+      <div class="gc-item" onclick="openTourney(this)">
+        <div class="gc-item-left">
+          <div class="gc-num">1</div>
+          <div class="gc-info">
+            <div class="gc-name">고교야구 주말리그 (전반기)</div>
+            <div class="gc-detail"><span class="gc-status live">진행중</span><span class="gc-games">12경기 완료</span></div>
+          </div>
+        </div>
+        <div class="gc-arrow">&#10095;</div>
+      </div>
+      <!-- 주말리그 전반기 펼침 영역 (샘플) -->
+      <div class="gc-expand" id="expandSample">
+        <div class="gc-expand-hd">
+          <span style="font-weight:700;font-size:14px;">고교야구 주말리그 (전반기) 최근 경기</span>
+          <div class="df" style="margin:10px 0 6px;"><div class="dc active">전체</div><div class="dc">충청권</div><div class="dc">영남권</div><div class="dc">수도권</div><div class="dc">호남권</div></div>
+        </div>
+        <div class="kbsa-mc" onclick="openLB2('sample_images/007.png')">
+          <div class="kbsa-thumb"><img src="sample_images/007.png" alt=""></div>
+          <div class="kbsa-body">
+            <div class="mc-meta"><span class="league-t">충청권</span><span class="match-d">3/15 (토)</span></div>
+            <div class="mc-teams">
+              <div class="mc-ti"><div class="mc-badge hb">포</div><span class="mc-tn">포항제철고</span></div>
+              <div class="mc-sc"><span class="mc-sn w">5</span><span class="mc-sep">:</span><span class="mc-sn">1</span></div>
+              <div class="mc-ti away"><div class="mc-badge ab">도</div><span class="mc-tn">도기고</span></div>
+            </div>
+            <div class="mc-ft"><div class="mvp-i"><span class="mvp-l">MVP</span><span class="mvp-n">이규도</span></div></div>
+          </div>
+        </div>
+        <div class="kbsa-mc" onclick="openLB2('sample_images/008.png')">
+          <div class="kbsa-thumb"><img src="sample_images/008.png" alt=""></div>
+          <div class="kbsa-body">
+            <div class="mc-meta"><span class="league-t">수도권</span><span class="match-d">3/15 (토)</span></div>
+            <div class="mc-teams">
+              <div class="mc-ti"><div class="mc-badge hb">서</div><span class="mc-tn">서울고</span></div>
+              <div class="mc-sc"><span class="mc-sn">1</span><span class="mc-sep">:</span><span class="mc-sn w">2</span></div>
+              <div class="mc-ti away"><div class="mc-badge ab">경</div><span class="mc-tn">경기상고</span></div>
+            </div>
+            <div class="mc-ft"><div class="mvp-i"><span class="mvp-l">MVP</span><span class="mvp-n">김승현</span></div></div>
+          </div>
+        </div>
+        <div class="kbsa-mc" onclick="openLB2('sample_images/001.png')">
+          <div class="kbsa-thumb"><img src="sample_images/001.png" alt=""></div>
+          <div class="kbsa-body">
+            <div class="mc-meta"><span class="league-t">영남권</span><span class="match-d">3/15 (토)</span></div>
+            <div class="mc-teams">
+              <div class="mc-ti"><div class="mc-badge hb">광</div><span class="mc-tn">광주고</span></div>
+              <div class="mc-sc"><span class="mc-sn w">9</span><span class="mc-sep">:</span><span class="mc-sn">8</span></div>
+              <div class="mc-ti away"><div class="mc-badge ab">산</div><span class="mc-tn">산의고</span></div>
+            </div>
+            <div class="mc-ft"><div class="mvp-i"><span class="mvp-l">MVP</span><span class="mvp-n">미정</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gc-item" onclick="openTourney(this)">
+        <div class="gc-item-left">
+          <div class="gc-num">2</div>
+          <div class="gc-info">
+            <div class="gc-name">고교야구 주말리그 (후반기)</div>
+            <div class="gc-detail"><span class="gc-status upcoming">예정</span></div>
+          </div>
+        </div>
+        <div class="gc-arrow">&#10095;</div>
+      </div>
+      <div class="gc-item" onclick="openTourney(this)">
+        <div class="gc-item-left">
+          <div class="gc-num">3</div>
+          <div class="gc-info">
+            <div class="gc-name">제 14회 BFA U-18 아시아 야구 챔피언십</div>
+            <div class="gc-detail"><span class="gc-status intl">국제대회</span></div>
+          </div>
+        </div>
+        <div class="gc-arrow">&#10095;</div>
+      </div>
+      <div class="gc-item" onclick="openTourney(this)">
+        <div class="gc-item-left">
+          <div class="gc-num">4</div>
+          <div class="gc-info">
+            <div class="gc-name">제 4회 한화이글스배 고교대학 올스타전</div>
+            <div class="gc-detail"><span class="gc-status upcoming">일정 미정</span></div>
+          </div>
+        </div>
+        <div class="gc-arrow">&#10095;</div>
+      </div>
+      <div class="gc-item" onclick="openTourney(this)">
+        <div class="gc-item-left">
+          <div class="gc-num">5</div>
+          <div class="gc-info">
+            <div class="gc-name">2026 신세계 이마트배 전국고교야구대회</div>
+            <div class="gc-detail"><span class="gc-status upcoming">일정 미정</span></div>
+          </div>
+        </div>
+        <div class="gc-arrow">&#10095;</div>
+      </div>
+      <div class="gc-item" onclick="openTourney(this)">
+        <div class="gc-item-left">
+          <div class="gc-num">6</div>
+          <div class="gc-info">
+            <div class="gc-name">제 80회 황금사자기 전국고교야구대회</div>
+            <div class="gc-detail"><span class="gc-status upcoming">일정 미정</span></div>
+          </div>
+        </div>
+        <div class="gc-arrow">&#10095;</div>
+      </div>
+      <div class="gc-item" onclick="openTourney(this)">
+        <div class="gc-item-left">
+          <div class="gc-num">7</div>
+          <div class="gc-info">
+            <div class="gc-name">제 81회 청룡기 전국고교야구선수권대회</div>
+            <div class="gc-detail"><span class="gc-status upcoming">일정 미정</span></div>
+          </div>
+        </div>
+        <div class="gc-arrow">&#10095;</div>
+      </div>
+      <div class="gc-item" onclick="openTourney(this)">
+        <div class="gc-item-left">
+          <div class="gc-num">8</div>
+          <div class="gc-info">
+            <div class="gc-name">제 60회 대통령배 전국고교야구대회</div>
+            <div class="gc-detail"><span class="gc-status upcoming">일정 미정</span></div>
+          </div>
+        </div>
+        <div class="gc-arrow">&#10095;</div>
+      </div>
+      <div class="gc-item" onclick="openTourney(this)">
+        <div class="gc-item-left">
+          <div class="gc-num">9</div>
+          <div class="gc-info">
+            <div class="gc-name">제 54회 봉황대기 전국고교야구대회</div>
+            <div class="gc-detail"><span class="gc-status upcoming">일정 미정</span></div>
+          </div>
+        </div>
+        <div class="gc-arrow">&#10095;</div>
+      </div>
+      <div class="gc-item" onclick="openTourney(this)">
+        <div class="gc-item-left">
+          <div class="gc-num">10</div>
+          <div class="gc-info">
+            <div class="gc-name">제 107회 전국체육대회</div>
+            <div class="gc-detail"><span class="gc-status upcoming">일정 미정</span></div>
+          </div>
+        </div>
+        <div class="gc-arrow">&#10095;</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- BOARD -->
+<!-- ============================================================ -->
+<div class="page-section" id="page-board">
+<div class="container" style="display:block;">
+  <div class="sec-hd"><h3>&#128172; 엘리트야구 게시판</h3><button class="btn btn-primary">&#9998; 글쓰기</button></div>
+  <div class="bt"><button class="active">전체</button><button>자유게시판</button><button>학부모</button><button>선수정보</button><button>대회/입시</button></div>
+  <div class="bl">
+    <div class="bi" style="background:var(--accent-light);"><span class="bc in">공지</span><span class="bt-t">야장마차 그라운드에 오신 것을 환영합니다! <span class="cc">[128]</span></span><span class="ba">관리자</span><span class="bd">03.01</span><span class="bv">&#128065; 12,456</span></div>
+    <div class="bi"><span class="bc pa">학부모</span><span class="bt-t">고1 아들 주말리그 첫 선발 등판했네요 <span class="cc">[32]</span></span><span class="ba">야구맘서울</span><span class="bd">03.15</span><span class="bv">&#128065; 1,204</span></div>
+    <div class="bi"><span class="bc in">대회정보</span><span class="bt-t">2026 U-15 상반기 전국주니어야구대회 일정 및 대진표 <span class="cc">[15]</span></span><span class="ba">야구정보통</span><span class="bd">03.14</span><span class="bv">&#128065; 2,847</span></div>
+    <div class="bi"><span class="bc fr">자유</span><span class="bt-t">오늘 포항제철고 경기 보신 분? 박상아 홈런 대박이었음 <span class="cc">[28]</span></span><span class="ba">야구팬0315</span><span class="bd">03.15</span><span class="bv">&#128065; 956</span></div>
+    <div class="bi"><span class="bc pl">선수정보</span><span class="bt-t">경기상고 김승현 투수 스탯 정리 (주말리그 전반기) <span class="cc">[11]</span></span><span class="ba">스카우트매니아</span><span class="bd">03.15</span><span class="bv">&#128065; 1,532</span></div>
+    <div class="bi"><span class="bc pa">학부모</span><span class="bt-t">중학교 야구부 입부 관련 질문드립니다 <span class="cc">[45]</span></span><span class="ba">예비야구맘</span><span class="bd">03.14</span><span class="bv">&#128065; 3,102</span></div>
+    <div class="bi"><span class="bc fr">자유</span><span class="bt-t">야장마차 콘텐츠 웹에서도 볼 수 있어서 너무 좋네요 <span class="cc">[19]</span></span><span class="ba">엘리트팬</span><span class="bd">03.14</span><span class="bv">&#128065; 876</span></div>
+    <div class="bi"><span class="bc in">입시정보</span><span class="bt-t">2027학년도 대학 야구 특기자 전형 일정 정리 <span class="cc">[67]</span></span><span class="ba">입시준비맘</span><span class="bd">03.13</span><span class="bv">&#128065; 4,521</span></div>
+    <div class="bi"><span class="bc pl">선수정보</span><span class="bt-t">신승민 사이클히트 축하! NMMI에서 잘하고 있네 <span class="cc">[34]</span></span><span class="ba">해외야구팬</span><span class="bd">03.14</span><span class="bv">&#128065; 2,156</span></div>
+    <div class="bi"><span class="bc pa">학부모</span><span class="bt-t">야구 엘리트 선수 부상 관리 팁 공유합니다 <span class="cc">[22]</span></span><span class="ba">야구아빠10년</span><span class="bd">03.13</span><span class="bv">&#128065; 1,789</span></div>
+  </div>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- STANDINGS -->
+<!-- ============================================================ -->
+<div class="page-section" id="page-standings">
+<div class="container" style="display:block;">
+  <div class="sec-hd"><h3>&#127942; 리그 순위</h3></div>
+  <div class="kf">
+    <select class="fs"><option>2026 고교야구 주말리그 (전반기)</option><option>2026 고교야구 주말리그 (후반기)</option></select>
+    <select class="fs"><option>충청권</option><option>영남권</option><option>수도권</option><option>호남권</option></select>
+  </div>
+  <div class="st-full">
+    <table>
+      <tr><th style="width:50px;">순위</th><th style="text-align:left;">학교</th><th>경기</th><th>승</th><th>무</th><th>패</th><th>승점</th></tr>
+      <tr><td class="rk g">1</td><td class="tc">공주고</td><td>3</td><td>3</td><td>0</td><td>0</td><td><strong>52</strong></td></tr>
+      <tr><td class="rk s">2</td><td class="tc">야구고</td><td>4</td><td>3</td><td>0</td><td>1</td><td><strong>48</strong></td></tr>
+      <tr><td class="rk b">3</td><td class="tc">서울고</td><td>2</td><td>2</td><td>0</td><td>0</td><td><strong>46</strong></td></tr>
+      <tr><td class="rk">4</td><td class="tc">전인CSBC</td><td>3</td><td>2</td><td>0</td><td>1</td><td><strong>43</strong></td></tr>
+      <tr><td class="rk">5</td><td class="tc">광주고</td><td>3</td><td>1</td><td>0</td><td>2</td><td><strong>36</strong></td></tr>
+      <tr><td class="rk">6</td><td class="tc">아산중SBC</td><td>3</td><td>1</td><td>0</td><td>2</td><td><strong>34</strong></td></tr>
+      <tr><td class="rk">7</td><td class="tc">세광고</td><td>4</td><td>0</td><td>0</td><td>4</td><td><strong>21</strong></td></tr>
+    </table>
+  </div>
+</div>
+</div>
+
+<!-- ===== LOGIN MODAL ===== -->
+<div class="mo" id="loginMo">
+  <div class="modal">
+    <div class="m-hd"><h3>로그인</h3><button class="m-cl" onclick="closeMo('loginMo')">&#10005;</button></div>
+    <div class="m-bd">
+      <div style="text-align:center;margin-bottom:14px;"><img src="sample_images/logo.png" style="width:56px;height:56px;border-radius:50%;margin:0 auto 6px;" alt=""><div style="font-size:14px;font-weight:600;color:var(--dark);">야장마차 그라운드</div></div>
+      <div class="sl"><button class="sb-btn kk">&#128171; 카카오로 시작하기</button><button class="sb-btn nv">N 네이버로 시작하기</button><button class="sb-btn gg">G 구글로 시작하기</button></div>
+      <div class="fd">또는</div>
+      <div class="fg"><label>이메일</label><input type="email" placeholder="이메일을 입력하세요"></div>
+      <div class="fg"><label>비밀번호</label><input type="password" placeholder="비밀번호를 입력하세요"></div>
+    </div>
+    <div class="m-ft"><button class="btn btn-primary">로그인</button></div>
+  </div>
+</div>
+
+<!-- ===== SIGNUP MODAL ===== -->
+<div class="mo" id="signupMo">
+  <div class="modal">
+    <div class="m-hd"><h3>회원가입</h3><button class="m-cl" onclick="closeMo('signupMo')">&#10005;</button></div>
+    <div class="m-bd">
+      <div style="text-align:center;margin-bottom:14px;"><img src="sample_images/logo.png" style="width:56px;height:56px;border-radius:50%;margin:0 auto 6px;" alt=""><div style="font-size:14px;font-weight:600;color:var(--dark);">야장마차 그라운드에 가입하세요</div></div>
+      <div class="sl"><button class="sb-btn kk">&#128171; 카카오로 시작하기</button><button class="sb-btn nv">N 네이버로 시작하기</button><button class="sb-btn gg">G 구글로 시작하기</button></div>
+      <div class="fd">또는 이메일로 가입</div>
+      <div class="fg"><label>닉네임</label><input type="text" placeholder="커뮤니티에서 사용할 닉네임"></div>
+      <div class="fg"><label>이메일</label><input type="email" placeholder="이메일을 입력하세요"></div>
+      <div class="fg"><label>비밀번호</label><input type="password" placeholder="비밀번호 (8자 이상)"></div>
+      <div class="fg"><label>회원 유형</label><select><option>선택해주세요</option><option>학부모</option><option>선수 (현역)</option><option>일반 팬</option><option>관계자</option></select></div>
+      <div class="fg"><label>관심 학교 (선택)</label><input type="text" placeholder="관심있는 학교명을 입력하세요"></div>
+    </div>
+    <div class="m-ft"><button class="btn btn-accent">가입하기</button></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-ft">
+  <div class="ft-in">
+    <div class="ft-logos">
+      <img src="sample_images/logo.png" alt="오늘부터아마야구" style="height:28px;border-radius:50%;">
+    </div>
+    <div class="ft-txt">&copy; 2026 오늘부터아마야구 · 야장마차 그라운드<br>스탯앤코 (StatnCo) 데이터 제휴</div>
+    <div class="ft-links"><a href="#">이용약관</a><a href="#">개인정보처리방침</a><a href="#">광고문의</a><a href="#">고객센터</a></div>
+  </div>
+</footer>
+
+<script>
+  function showPage(p,el){document.querySelectorAll('.page-section').forEach(x=>x.classList.remove('active'));document.getElementById('page-'+p).classList.add('active');if(el){document.querySelectorAll('.main-nav a').forEach(a=>a.classList.remove('active'));el.classList.add('active');}window.scrollTo({top:0,behavior:'smooth'});}
+  function openMo(id){document.getElementById(id).classList.add('show');}
+  function closeMo(id){document.getElementById(id).classList.remove('show');}
+  document.querySelectorAll('.mo').forEach(o=>{o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('show');});});
+  function openLB2(src){document.getElementById('lbImg').src=src;document.getElementById('lb').classList.add('show');}
+  function closeLB(){document.getElementById('lb').classList.remove('show');}
+
+  let cs=0;const ts=4;
+  function goS(n){cs=n;for(let i=0;i<ts;i++){document.getElementById('s'+i).classList.toggle('hidden',i!==n);}document.querySelectorAll('.hero-dot').forEach((d,i)=>{d.classList.toggle('active',i===n);});}
+  function nextS(){goS((cs+1)%ts);}
+  function prevS(){goS((cs-1+ts)%ts);}
+  setInterval(nextS,5000);
+
+  document.querySelectorAll('.dc').forEach(c=>{c.addEventListener('click',()=>{c.parentElement.querySelectorAll('.dc').forEach(x=>x.classList.remove('active'));c.classList.add('active');});});
+  document.querySelectorAll('.bt button').forEach(t=>{t.addEventListener('click',()=>{t.parentElement.querySelectorAll('button').forEach(x=>x.classList.remove('active'));t.classList.add('active');});});
+
+  // 경기센터 카테고리 필터
+  function showCat(cat,el){
+    document.querySelectorAll('.gc-tab').forEach(t=>t.classList.remove('active'));
+    el.classList.add('active');
+    document.querySelectorAll('.gc-section').forEach(s=>{
+      if(cat==='all'){s.style.display='block';}
+      else{s.style.display=s.dataset.cat===cat?'block':'none';}
+    });
+  }
+  // 대회 클릭 (데모용)
+  function openTourney(el){
+    // 실제 서비스에서는 해당 대회의 일정/결과 페이지로 이동
+    const name=el.querySelector('.gc-name').textContent;
+    alert('「'+name+'」\n\n경기 일정 및 결과 페이지로 이동합니다.\n(프로토타입 데모)');
+  }
+</script>
+</body>
+</html>
