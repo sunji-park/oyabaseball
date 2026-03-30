@@ -165,6 +165,51 @@
   .sh { color: rgba(255,255,255,0.5); font-size: 11px; background: none; border: none; font-family: inherit; cursor: pointer; }
   .sh:hover { color: white; }
 
+  /* ===== YAJANG LIST VIEW ===== */
+  .yjl-item { display: flex; gap: 16px; padding: 16px; background: var(--white); border-radius: var(--radius); margin-bottom: 10px; box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); cursor: pointer; transition: all 0.2s; align-items: flex-start; }
+  .yjl-item:hover { border-color: var(--primary-light); box-shadow: var(--shadow-md); transform: translateY(-1px); }
+  .yjl-thumb { width: 120px; height: 90px; border-radius: var(--radius-sm); overflow: hidden; flex-shrink: 0; background: var(--gray-100); }
+  .yjl-thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .yjl-body { flex: 1; min-width: 0; }
+  .yjl-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+  .yjl-date { font-size: 11px; color: var(--gray-500); }
+  .yjl-title { font-size: 15px; font-weight: 700; color: var(--dark); line-height: 1.4; margin-bottom: 4px; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+  .yjl-desc { font-size: 12px; color: var(--gray-600); display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 6px; }
+  .yjl-stats { display: flex; gap: 12px; font-size: 11px; color: var(--gray-500); }
+
+  /* ===== YAJANG DETAIL VIEW ===== */
+  .yjd-wrap { max-width: 720px; margin: 0 auto; }
+  .yjd-back { display: inline-flex; align-items: center; gap: 6px; background: none; border: 1px solid var(--gray-200); color: var(--gray-600); padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 500; margin-bottom: 16px; cursor: pointer; transition: all 0.2s; }
+  .yjd-back:hover { color: var(--primary); border-color: var(--primary); }
+  .yjd-article { background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-md); border: 1px solid var(--gray-200); }
+  .yjd-head { padding: 28px 28px 20px; }
+  .yjd-cat { display: inline-block; background: rgba(255,109,0,0.15); color: var(--accent); padding: 3px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; margin-bottom: 12px; }
+  .yjd-title { font-size: 22px; font-weight: 800; color: var(--dark); line-height: 1.4; margin-bottom: 16px; }
+  .yjd-meta-row { display: flex; align-items: center; justify-content: space-between; }
+  .yjd-author { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--dark); }
+  .yjd-avatar { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; }
+  .yjd-date { font-size: 12px; color: var(--gray-500); }
+  .yjd-hero { background: var(--gray-50); }
+  .yjd-hero img { width: 100%; cursor: pointer; }
+  .yjd-body { padding: 24px 28px; font-size: 14px; color: var(--gray-700); line-height: 1.8; }
+  .yjd-body p { margin-bottom: 14px; }
+  .yjd-body strong { color: var(--dark); }
+  .yjd-actions { padding: 14px 28px; border-top: 1px solid var(--gray-100); display: flex; align-items: center; justify-content: space-between; }
+  .yjd-reactions { display: flex; gap: 8px; }
+  .yjd-react-btn { background: var(--gray-50); border: 1px solid var(--gray-200); padding: 6px 14px; border-radius: 20px; font-size: 12px; color: var(--gray-600); cursor: pointer; display: inline-flex; align-items: center; gap: 4px; transition: all 0.2s; }
+  .yjd-react-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .yjd-share-btn { background: none; border: 1px solid var(--gray-200); padding: 6px 14px; border-radius: 20px; font-size: 12px; color: var(--gray-600); cursor: pointer; }
+  .yjd-share-btn:hover { border-color: var(--primary); color: var(--primary); }
+  .yjd-comments { padding: 20px 28px; border-top: 1px solid var(--gray-100); }
+  .yjd-cm-hd { font-size: 14px; font-weight: 700; color: var(--dark); margin-bottom: 14px; }
+  .yjd-cm-item { display: flex; gap: 10px; align-items: baseline; padding: 10px 0; border-bottom: 1px solid var(--gray-100); font-size: 13px; }
+  .yjd-cm-author { font-weight: 600; color: var(--dark); flex-shrink: 0; }
+  .yjd-cm-text { flex: 1; color: var(--gray-700); }
+  .yjd-cm-time { font-size: 11px; color: var(--gray-500); flex-shrink: 0; }
+  .yjd-cm-input { display: flex; gap: 8px; margin-top: 14px; }
+  .yjd-cm-input input { flex: 1; padding: 9px 14px; border: 1px solid var(--gray-200); border-radius: 8px; font-size: 13px; outline: none; font-family: inherit; }
+  .yjd-cm-input input:focus { border-color: var(--primary); }
+
   /* ===== SIDEBAR ===== */
   .sidebar { display: flex; flex-direction: column; gap: 14px; }
   .sb { background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); }
@@ -573,54 +618,108 @@
 </div>
 
 <!-- ============================================================ -->
-<!-- YAJANG (풀 이미지) -->
+<!-- YAJANG (리스트 + 상세) -->
 <!-- ============================================================ -->
 <div class="page-section" id="page-yajang">
-<div class="container" style="display:block;max-width:800px;margin:0 auto;">
+<div class="container" style="display:block;max-width:960px;margin:0 auto;">
   <div class="sec-hd"><h3><img src="sample_images/logo.png" style="width:30px;height:30px;border-radius:50%;object-fit:cover;display:inline-block;" alt=""> 야장마차 콘텐츠</h3></div>
-  <div class="df"><div class="dc active">전체</div><div class="dc">경기 결과</div><div class="dc">MVP</div><div class="dc">하이라이트</div><div class="dc">야장마차 뉴스</div><div class="dc">순위표</div></div>
+  <div class="df"><div class="dc active" onclick="yjFilter('all',this)">전체</div><div class="dc" onclick="yjFilter('result',this)">경기 결과</div><div class="dc" onclick="yjFilter('highlight',this)">하이라이트</div><div class="dc" onclick="yjFilter('news',this)">야장마차 뉴스</div><div class="dc" onclick="yjFilter('tournament',this)">대회</div></div>
 
-  <div class="yj"><div class="yj-hd"><div class="yj-brand"><img src="sample_images/logo.png" class="yj-logo"><span class="yj-bn">야장마차</span></div><span class="yj-dt">2026.03.15</span></div>
-    <div style="padding:0;"><img src="sample_images/001.png" style="width:100%;cursor:pointer;" onclick="openLB2('sample_images/001.png')" alt=""></div>
-    <div class="yj-content" style="padding-top:0;"><div class="yj-info" style="padding-top:10px;"><div class="yj-type">경기 결과</div><div class="yj-title">2026 고교야구 주말리그 전반기 3월 15일 경기 결과 종합</div><div class="yj-desc">서울고 1:2 경기상고, 광주고 9:8 산의고, 서울디지텍고 2:0 산의고 외</div></div></div>
-    <div class="yj-ft"><div class="yj-rx"><span class="rx">&#10084;&#65039; 542</span><span class="rx">&#128172; 87</span><span class="rx">&#128065; 4.2k</span></div><button class="sh">&#128279; 공유</button></div>
+  <!-- 리스트 뷰 -->
+  <div id="yjList">
+    <div class="yjl-item" data-cat="result" onclick="yjDetail(0)">
+      <div class="yjl-thumb"><img src="sample_images/001.png" alt=""></div>
+      <div class="yjl-body">
+        <div class="yjl-meta"><span class="yj-type">경기 결과</span><span class="yjl-date">2026.03.15</span></div>
+        <div class="yjl-title">2026 고교야구 주말리그 전반기 3월 15일 경기 결과 종합</div>
+        <div class="yjl-desc">서울고 1:2 경기상고, 광주고 9:8 산의고, 서울디지텍고 2:0 산의고 외</div>
+        <div class="yjl-stats"><span>&#10084;&#65039; 542</span><span>&#128172; 87</span><span>&#128065; 4.2k</span></div>
+      </div>
+    </div>
+    <div class="yjl-item" data-cat="result" onclick="yjDetail(1)">
+      <div class="yjl-thumb"><img src="sample_images/007.png" alt=""></div>
+      <div class="yjl-body">
+        <div class="yjl-meta"><span class="yj-type">경기 결과</span><span class="yjl-date">2026.03.15</span></div>
+        <div class="yjl-title">포항제철고 5:1 도기고 — 박상아 3타점 홈런, MVP 이규도</div>
+        <div class="yjl-desc">박상아 선수가 3회 3타점 홈런을 기록하며 포항제철고의 대승을 이끌었습니다.</div>
+        <div class="yjl-stats"><span>&#10084;&#65039; 342</span><span>&#128172; 56</span><span>&#128065; 2.4k</span></div>
+      </div>
+    </div>
+    <div class="yjl-item" data-cat="result" onclick="yjDetail(2)">
+      <div class="yjl-thumb"><img src="sample_images/008.png" alt=""></div>
+      <div class="yjl-body">
+        <div class="yjl-meta"><span class="yj-type">경기 결과</span><span class="yjl-date">2026.03.15</span></div>
+        <div class="yjl-title">서울고 1:2 경기상고 — MVP 김승현, 에이스 완투 포스</div>
+        <div class="yjl-desc">경기상고 김승현 투수가 에이스다운 완투로 서울고를 잡았습니다.</div>
+        <div class="yjl-stats"><span>&#10084;&#65039; 218</span><span>&#128172; 31</span><span>&#128065; 1.8k</span></div>
+      </div>
+    </div>
+    <div class="yjl-item" data-cat="news" onclick="yjDetail(3)">
+      <div class="yjl-thumb"><img src="sample_images/images.jpg" alt=""></div>
+      <div class="yjl-body">
+        <div class="yjl-meta"><span class="yj-type">야장마차 뉴스</span><span class="yjl-date">2026.03.15</span></div>
+        <div class="yjl-title">'황우경 끝내기 2루타' 소격, 극적으로 연장 끝 끝났다</div>
+        <div class="yjl-desc">소격 vs 광주 연장전 승부, 이 경기의 모든 하이라이트와 주요 기록 정리</div>
+        <div class="yjl-stats"><span>&#10084;&#65039; 456</span><span>&#128172; 72</span><span>&#128065; 3.1k</span></div>
+      </div>
+    </div>
+    <div class="yjl-item" data-cat="news" onclick="yjDetail(4)">
+      <div class="yjl-thumb"><img src="sample_images/006.png" alt=""></div>
+      <div class="yjl-body">
+        <div class="yjl-meta"><span class="yj-type">야장마차 뉴스</span><span class="yjl-date">2026.03.15</span></div>
+        <div class="yjl-title">'김민혁 11K·임재경 올 퍼펙트' 전흥, 연장 끝에 화순 잡아</div>
+        <div class="yjl-desc">2026 고교야구 주말리그 전반기 주요 경기 결과와 하이라이트</div>
+        <div class="yjl-stats"><span>&#10084;&#65039; 342</span><span>&#128172; 56</span><span>&#128065; 2.4k</span></div>
+      </div>
+    </div>
+    <div class="yjl-item" data-cat="highlight" onclick="yjDetail(5)">
+      <div class="yjl-thumb"><img src="sample_images/002.png" alt=""></div>
+      <div class="yjl-body">
+        <div class="yjl-meta"><span class="yj-type" style="background:rgba(76,175,80,0.2);color:#43a047;">선수 하이라이트</span><span class="yjl-date">2026.03.14</span></div>
+        <div class="yjl-title">신승민, 사이클 히트 달성! (NMMI 2학년)</div>
+        <div class="yjl-desc">1회 안타 / 3회 홈런 / 3회 2루타 / 5회 3루타 — HIT FOR THE CYCLE</div>
+        <div class="yjl-stats"><span>&#10084;&#65039; 892</span><span>&#128172; 124</span><span>&#128065; 5.6k</span></div>
+      </div>
+    </div>
+    <div class="yjl-item" data-cat="tournament" onclick="yjDetail(6)">
+      <div class="yjl-thumb"><img src="sample_images/004.png" alt=""></div>
+      <div class="yjl-body">
+        <div class="yjl-meta"><span class="yj-type" style="background:rgba(30,136,229,0.2);color:#1e88e5;">U-15 대회</span><span class="yjl-date">2026.03.15</span></div>
+        <div class="yjl-title">2026 U-15 상반기 전국주니어야구대회 결과</div>
+        <div class="yjl-desc">광명시 13:0 천안시 (콜드승), 원목·용인 4:4 무승부</div>
+        <div class="yjl-stats"><span>&#10084;&#65039; 198</span><span>&#128172; 24</span><span>&#128065; 1.5k</span></div>
+      </div>
+    </div>
   </div>
 
-  <div class="yj"><div class="yj-hd"><div class="yj-brand"><img src="sample_images/logo.png" class="yj-logo"><span class="yj-bn">야장마차</span></div><span class="yj-dt">2026.03.15</span></div>
-    <div style="padding:0;"><img src="sample_images/007.png" style="width:100%;cursor:pointer;" onclick="openLB2('sample_images/007.png')" alt=""></div>
-    <div class="yj-content" style="padding-top:0;"><div class="yj-info" style="padding-top:10px;"><div class="yj-type">경기 결과</div><div class="yj-title">포항제철고 5:1 도기고 — 박상아 3타점 홈런, MVP 이규도</div><div class="yj-desc">박상아 선수가 3회 3타점 홈런을 기록하며 포항제철고의 대승을 이끌었습니다.</div></div></div>
-    <div class="yj-ft"><div class="yj-rx"><span class="rx">&#10084;&#65039; 342</span><span class="rx">&#128172; 56</span><span class="rx">&#128065; 2.4k</span></div><button class="sh">&#128279; 공유</button></div>
+  <!-- 상세 뷰 (처음에 숨김) -->
+  <div id="yjDetailView" class="yjd-wrap" style="display:none;">
+    <button class="yjd-back" onclick="yjBack()">&larr; 목록으로</button>
+    <div class="yjd-article">
+      <div class="yjd-head">
+        <div class="yjd-cat" id="yjdCat">경기 결과</div>
+        <h2 class="yjd-title" id="yjdTitle"></h2>
+        <div class="yjd-meta-row">
+          <div class="yjd-author"><img src="sample_images/logo.png" class="yjd-avatar"><span>야장마차</span></div>
+          <span class="yjd-date" id="yjdDate"></span>
+        </div>
+      </div>
+      <div class="yjd-hero"><img id="yjdImg" src="" alt="" onclick="openLB2(this.src)"></div>
+      <div class="yjd-body" id="yjdBody"></div>
+      <div class="yjd-actions">
+        <div class="yjd-reactions"><button class="yjd-react-btn">&#10084;&#65039; <span id="yjdLikes">0</span></button><button class="yjd-react-btn">&#128172; <span id="yjdComments">0</span></button><button class="yjd-react-btn">&#128065; <span id="yjdViews">0</span></button></div>
+        <button class="yjd-share-btn">&#128279; 공유</button>
+      </div>
+      <!-- 댓글 미리보기 -->
+      <div class="yjd-comments">
+        <div class="yjd-cm-hd">댓글</div>
+        <div class="yjd-cm-item"><span class="yjd-cm-author">야구맘서울</span><span class="yjd-cm-text">경기 직관했는데 정말 대단했습니다!</span><span class="yjd-cm-time">2시간 전</span></div>
+        <div class="yjd-cm-item"><span class="yjd-cm-author">야구정보통</span><span class="yjd-cm-text">하이라이트 영상도 올려주세요~</span><span class="yjd-cm-time">1시간 전</span></div>
+        <div class="yjd-cm-input"><input type="text" placeholder="댓글을 입력하세요..."><button class="btn btn-accent" style="padding:7px 14px;font-size:12px;">등록</button></div>
+      </div>
+    </div>
   </div>
 
-  <div class="yj"><div class="yj-hd"><div class="yj-brand"><img src="sample_images/logo.png" class="yj-logo"><span class="yj-bn">야장마차</span></div><span class="yj-dt">2026.03.15</span></div>
-    <div style="padding:0;"><img src="sample_images/008.png" style="width:100%;cursor:pointer;" onclick="openLB2('sample_images/008.png')" alt=""></div>
-    <div class="yj-content" style="padding-top:0;"><div class="yj-info" style="padding-top:10px;"><div class="yj-type">경기 결과</div><div class="yj-title">서울고 1:2 경기상고 — MVP 김승현, 에이스 완투 포스</div><div class="yj-desc">경기상고 김승현 투수가 에이스다운 완투로 서울고를 잡았습니다.</div></div></div>
-    <div class="yj-ft"><div class="yj-rx"><span class="rx">&#10084;&#65039; 218</span><span class="rx">&#128172; 31</span><span class="rx">&#128065; 1.8k</span></div><button class="sh">&#128279; 공유</button></div>
-  </div>
-
-  <div class="yj"><div class="yj-hd"><div class="yj-brand"><img src="sample_images/logo.png" class="yj-logo"><span class="yj-bn">야장마차</span></div><span class="yj-dt">2026.03.15</span></div>
-    <div style="padding:0;"><img src="sample_images/images.jpg" style="width:100%;cursor:pointer;" onclick="openLB2('sample_images/images.jpg')" alt=""></div>
-    <div class="yj-content" style="padding-top:0;"><div class="yj-info" style="padding-top:10px;"><div class="yj-type">야장마차 뉴스</div><div class="yj-title">'황우경 끝내기 2루타' 소격, 극적으로 연장 끝 끝났다</div><div class="yj-desc">소격 vs 광주 연장전 승부, 이 경기의 모든 하이라이트와 주요 기록</div></div></div>
-    <div class="yj-ft"><div class="yj-rx"><span class="rx">&#10084;&#65039; 456</span><span class="rx">&#128172; 72</span><span class="rx">&#128065; 3.1k</span></div><button class="sh">&#128279; 공유</button></div>
-  </div>
-
-  <div class="yj"><div class="yj-hd"><div class="yj-brand"><img src="sample_images/logo.png" class="yj-logo"><span class="yj-bn">야장마차</span></div><span class="yj-dt">2026.03.15</span></div>
-    <div style="padding:0;"><img src="sample_images/006.png" style="width:100%;cursor:pointer;" onclick="openLB2('sample_images/006.png')" alt=""></div>
-    <div class="yj-content" style="padding-top:0;"><div class="yj-info" style="padding-top:10px;"><div class="yj-type">야장마차 뉴스</div><div class="yj-title">'김민혁 11K·임재경 올 퍼펙트' 전흥, 연장 끝에 화순 잡아</div><div class="yj-desc">2026 고교야구 주말리그 전반기 주요 경기 결과와 하이라이트</div></div></div>
-    <div class="yj-ft"><div class="yj-rx"><span class="rx">&#10084;&#65039; 342</span><span class="rx">&#128172; 56</span><span class="rx">&#128065; 2.4k</span></div><button class="sh">&#128279; 공유</button></div>
-  </div>
-
-  <div class="yj"><div class="yj-hd"><div class="yj-brand"><img src="sample_images/logo.png" class="yj-logo"><span class="yj-bn">야장마차</span></div><span class="yj-dt">2026.03.14</span></div>
-    <div style="padding:0;"><img src="sample_images/002.png" style="width:100%;cursor:pointer;" onclick="openLB2('sample_images/002.png')" alt=""></div>
-    <div class="yj-content" style="padding-top:0;"><div class="yj-info" style="padding-top:10px;"><div class="yj-type" style="background:rgba(76,175,80,0.2);color:#43a047;">선수 하이라이트</div><div class="yj-title">신승민, 사이클 히트 달성! (NMMI 2학년)</div><div class="yj-desc">1회 안타 / 3회 홈런 / 3회 2루타 / 5회 3루타</div></div></div>
-    <div class="yj-ft"><div class="yj-rx"><span class="rx">&#10084;&#65039; 892</span><span class="rx">&#128172; 124</span><span class="rx">&#128065; 5.6k</span></div><button class="sh">&#128279; 공유</button></div>
-  </div>
-
-  <div class="yj"><div class="yj-hd"><div class="yj-brand"><img src="sample_images/logo.png" class="yj-logo"><span class="yj-bn">야장마차</span></div><span class="yj-dt">2026.03.15</span></div>
-    <div style="padding:0;"><img src="sample_images/004.png" style="width:100%;cursor:pointer;" onclick="openLB2('sample_images/004.png')" alt=""></div>
-    <div class="yj-content" style="padding-top:0;"><div class="yj-info" style="padding-top:10px;"><div class="yj-type" style="background:rgba(30,136,229,0.2);color:#1e88e5;">U-15 대회</div><div class="yj-title">2026 U-15 상반기 전국주니어야구대회 결과</div><div class="yj-desc">광명시 13:0 천안시, 원목·용인 4:4 무승부</div></div></div>
-    <div class="yj-ft"><div class="yj-rx"><span class="rx">&#10084;&#65039; 198</span><span class="rx">&#128172; 24</span><span class="rx">&#128065; 1.5k</span></div><button class="sh">&#128279; 공유</button></div>
-  </div>
 </div>
 </div>
 
@@ -1042,8 +1141,55 @@
   function prevS(){goS((cs-1+ts)%ts);}
   setInterval(nextS,5000);
 
-  document.querySelectorAll('.dc').forEach(c=>{c.addEventListener('click',()=>{c.parentElement.querySelectorAll('.dc').forEach(x=>x.classList.remove('active'));c.classList.add('active');});});
+  // dc 일반 탭 토글 (야장마차 제외 — 별도 yjFilter 사용)
+  document.querySelectorAll('.dc').forEach(c=>{if(!c.hasAttribute('onclick')){c.addEventListener('click',()=>{c.parentElement.querySelectorAll('.dc').forEach(x=>x.classList.remove('active'));c.classList.add('active');});}});
   document.querySelectorAll('.bt button').forEach(t=>{t.addEventListener('click',()=>{t.parentElement.querySelectorAll('button').forEach(x=>x.classList.remove('active'));t.classList.add('active');});});
+
+  // 야장마차 콘텐츠 데이터
+  const yjData=[
+    {cat:'경기 결과',title:'2026 고교야구 주말리그 전반기 3월 15일 경기 결과 종합',date:'2026.03.15',img:'sample_images/001.png',likes:'542',comments:'87',views:'4.2k',
+     body:'<p><strong>2026 고교야구 주말리그 전반기</strong> 3월 15일(토) 경기 결과를 종합 정리합니다.</p><p>서울고 1:2 경기상고 — 경기상고 김승현 투수가 에이스다운 완투승을 거뒀습니다. 포항제철고 5:1 도기고 — 박상아 선수의 3타점 홈런이 승리를 이끌었습니다.</p><p>광주고 9:8 산의고 — 시소게임 끝에 광주고가 역전승. 서울디지텍고 2:0 산의고 — 투수전 끝에 완봉승을 기록했습니다.</p>'},
+    {cat:'경기 결과',title:'포항제철고 5:1 도기고 — 박상아 3타점 홈런, MVP 이규도',date:'2026.03.15',img:'sample_images/007.png',likes:'342',comments:'56',views:'2.4k',
+     body:'<p><strong>포항제철고가 도기고를 5:1로 제압</strong>했습니다.</p><p>3회초 박상아 선수가 주자 2명을 두고 3타점 홈런을 터뜨리며 경기의 분위기를 결정지었습니다. 이규도 투수는 4이닝 3실점으로 선발 임무를 마쳤으나 타선의 지원에 힘입어 승리투수가 되었습니다.</p><p>포항제철고는 이번 승리로 전반기 충청권 상위권 진입에 성공했습니다.</p>'},
+    {cat:'경기 결과',title:'서울고 1:2 경기상고 — MVP 김승현, 에이스 완투 포스',date:'2026.03.15',img:'sample_images/008.png',likes:'218',comments:'31',views:'1.8k',
+     body:'<p><strong>경기상고 김승현 투수가 에이스다운 완투승</strong>을 기록했습니다.</p><p>서울고 타선을 9이닝 동안 1실점으로 막아내며 팀의 승리를 이끌었습니다. 경기상고는 5회말 결승 적시타로 2:1 리드를 잡은 뒤, 김승현의 안정적인 투구로 경기를 마무리했습니다.</p>'},
+    {cat:'야장마차 뉴스',title:"'황우경 끝내기 2루타' 소격, 극적으로 연장 끝 끝났다",date:'2026.03.15',img:'sample_images/images.jpg',likes:'456',comments:'72',views:'3.1k',
+     body:'<p><strong>소격 vs 광주 연장전 승부</strong>에서 황우경 선수가 끝내기 2루타를 터뜨리며 극적인 승리를 거뒀습니다.</p><p>7회까지 3:3 동점이었던 경기는 연장 8회까지 이어졌고, 8회말 2사 2루 상황에서 황우경의 좌중간 적시 2루타가 경기를 결정지었습니다.</p><p>이 경기의 모든 하이라이트와 주요 기록을 정리합니다.</p>'},
+    {cat:'야장마차 뉴스',title:"'김민혁 11K·임재경 올 퍼펙트' 전흥, 연장 끝에 화순 잡아",date:'2026.03.15',img:'sample_images/006.png',likes:'342',comments:'56',views:'2.4k',
+     body:'<p><strong>2026 고교야구 주말리그 전반기</strong> 주요 경기 결과와 하이라이트입니다.</p><p>김민혁 투수는 11개의 탈삼진을 기록하며 압도적인 투구를 보여줬고, 임재경은 올 퍼펙트(모든 타석 안타)를 달성했습니다. 전흥고는 연장전 끝에 화순고를 꺾으며 승리를 가져갔습니다.</p>'},
+    {cat:'선수 하이라이트',title:'신승민, 사이클 히트 달성! (NMMI 2학년)',date:'2026.03.14',img:'sample_images/002.png',likes:'892',comments:'124',views:'5.6k',
+     body:'<p><strong>신승민 선수(NMMI 2학년)가 사이클 히트(HIT FOR THE CYCLE)를 달성</strong>했습니다!</p><p>1회: 안타 / 3회: 홈런 / 3회: 2루타 / 5회: 3루타</p><p>한 경기에서 안타, 2루타, 3루타, 홈런을 모두 기록하는 사이클 히트는 야구에서 가장 달성하기 어려운 기록 중 하나입니다. 해외에서 활약 중인 한국 엘리트 야구 선수의 뛰어난 성과를 축하합니다!</p>'},
+    {cat:'U-15 대회',title:'2026 U-15 상반기 전국주니어야구대회 결과',date:'2026.03.15',img:'sample_images/004.png',likes:'198',comments:'24',views:'1.5k',
+     body:'<p><strong>2026 U-15 상반기 전국주니어야구대회</strong> 조별리그 결과입니다.</p><p>광명시 13:0 천안시 (콜드승, 5이닝) — 광명시가 압도적인 타력으로 콜드게임을 만들었습니다. 원목·용인 4:4 무승부 — 팽팽한 접전 끝에 무승부로 마무리되었습니다.</p><p>내일 이어지는 조별리그 및 토너먼트 일정에도 많은 관심 부탁드립니다.</p>'}
+  ];
+
+  function yjDetail(idx){
+    const d=yjData[idx];
+    document.getElementById('yjdCat').textContent=d.cat;
+    document.getElementById('yjdTitle').textContent=d.title;
+    document.getElementById('yjdDate').textContent=d.date;
+    document.getElementById('yjdImg').src=d.img;
+    document.getElementById('yjdBody').innerHTML=d.body;
+    document.getElementById('yjdLikes').textContent=d.likes;
+    document.getElementById('yjdComments').textContent=d.comments;
+    document.getElementById('yjdViews').textContent=d.views;
+    document.getElementById('yjList').style.display='none';
+    document.getElementById('yjDetailView').style.display='block';
+    window.scrollTo({top:document.getElementById('page-yajang').offsetTop+60,behavior:'smooth'});
+  }
+  function yjBack(){
+    document.getElementById('yjDetailView').style.display='none';
+    document.getElementById('yjList').style.display='block';
+  }
+  function yjFilter(cat,el){
+    el.parentElement.querySelectorAll('.dc').forEach(x=>x.classList.remove('active'));
+    el.classList.add('active');
+    document.querySelectorAll('#yjList .yjl-item').forEach(item=>{
+      if(cat==='all'){item.style.display='flex';}
+      else{item.style.display=item.dataset.cat===cat?'flex':'none';}
+    });
+    yjBack();
+  }
 
   // 경기센터 카테고리 필터
   function showCat(cat,el){
