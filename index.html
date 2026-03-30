@@ -142,8 +142,88 @@
   .league-t { font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 4px; background: var(--primary-bg); color: var(--primary); }
   .match-d { font-size: 12px; color: var(--gray-500); }
 
-  /* ===== YAJANG CARDS ===== */
-  .yj-feed { margin-top: 20px; }
+  /* ===== YAJANG LIST VIEW ===== */
+  .yjl-wrap { max-width: 1200px; margin: 0 auto; }
+  .yjl-toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; }
+  .yjl-search { position: relative; }
+  .yjl-search input { width: 220px; padding: 7px 14px 7px 34px; border: 1px solid var(--gray-200); border-radius: 20px; font-size: 13px; font-family: inherit; background: var(--white); outline: none; transition: all 0.2s; }
+  .yjl-search input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(26,35,126,0.1); width: 260px; }
+  .yjl-search svg { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: var(--gray-500); pointer-events: none; }
+  .yjl-tabs { display: flex; gap: 4px; background: var(--white); padding: 4px; border-radius: var(--radius-sm); border: 1px solid var(--gray-200); flex-wrap: wrap; }
+  .yjl-tab { padding: 7px 14px; font-size: 13px; font-weight: 500; color: var(--gray-600); background: transparent; border-radius: 6px; transition: all 0.2s; }
+  .yjl-tab:hover { color: var(--primary); }
+  .yjl-tab.active { background: var(--primary); color: white; font-weight: 600; }
+  .yjl-view-toggle { display: flex; gap: 2px; background: var(--white); padding: 3px; border-radius: var(--radius-sm); border: 1px solid var(--gray-200); }
+  .yjl-vbtn { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 5px; background: transparent; color: var(--gray-500); font-size: 16px; transition: all 0.2s; }
+  .yjl-vbtn:hover { color: var(--primary); }
+  .yjl-vbtn.active { background: var(--primary); color: white; }
+
+  /* 카드형 (4열 그리드) - 디폴트 */
+  .yjl-list.grid-view { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .yjl-list.grid-view .yjl-item { flex-direction: column; gap: 0; padding: 0; overflow: hidden; }
+  .yjl-list.grid-view .yjl-thumb { width: 100%; height: 140px; border-radius: 0; flex-shrink: 0; }
+  .yjl-list.grid-view .yjl-body { padding: 12px; gap: 5px; }
+  .yjl-list.grid-view .yjl-title { font-size: 13px; white-space: normal; -webkit-line-clamp: 2; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; }
+  .yjl-list.grid-view .yjl-desc { display: none; }
+  .yjl-list.grid-view .yjl-meta { flex-wrap: wrap; gap: 8px; }
+
+  /* 리스트형 (좌 썸네일 + 우 텍스트) */
+  .yjl-list.list-view { display: flex; flex-direction: column; gap: 10px; }
+  .yjl-list.list-view .yjl-item { display: flex; gap: 16px; padding: 16px; align-items: flex-start; flex-direction: row; overflow: visible; }
+  .yjl-list.list-view .yjl-thumb { width: 140px; height: 100px; border-radius: var(--radius-sm); }
+  .yjl-list.list-view .yjl-body { padding: 0; }
+  .yjl-list.list-view .yjl-title { font-size: 15px; white-space: nowrap; display: block; -webkit-line-clamp: unset; }
+  .yjl-list.list-view .yjl-desc { display: -webkit-box; }
+
+  /* 공통 아이템 */
+  .yjl-item { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); cursor: pointer; transition: all 0.2s; }
+  .yjl-item:hover { box-shadow: var(--shadow-md); border-color: var(--primary-light); transform: translateY(-1px); }
+  .yjl-thumb { background: var(--gray-100); overflow: hidden; }
+  .yjl-thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .yjl-body { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 4px; }
+  .yjl-cat { display: inline-block; background: rgba(255,109,0,0.15); color: var(--accent); padding: 2px 9px; border-radius: 4px; font-size: 11px; font-weight: 600; width: fit-content; }
+  .yjl-title { font-size: 15px; font-weight: 700; color: var(--dark); line-height: 1.4; overflow: hidden; text-overflow: ellipsis; }
+  .yjl-desc { font-size: 12px; color: var(--gray-600); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.5; }
+  .yjl-meta { display: flex; gap: 12px; font-size: 11px; color: var(--gray-500); margin-top: 4px; }
+  .yjl-meta span { display: flex; align-items: center; gap: 3px; }
+
+  @media (max-width: 900px) { .yjl-list.grid-view { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 700px) { .yjl-list.grid-view { grid-template-columns: repeat(2, 1fr); } }
+
+  /* ===== YAJANG DETAIL VIEW ===== */
+  .yjd-wrap { max-width: 720px; margin: 0 auto; }
+  .yjd-back { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: var(--gray-600); cursor: pointer; padding: 8px 14px; border-radius: var(--radius-sm); background: var(--white); border: 1px solid var(--gray-200); margin-bottom: 16px; transition: all 0.2s; }
+  .yjd-back:hover { color: var(--primary); border-color: var(--primary); }
+  .yjd-article { background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-md); }
+  .yjd-hero { width: 100%; max-height: 400px; object-fit: cover; cursor: pointer; }
+  .yjd-header { padding: 24px 28px 16px; }
+  .yjd-cat { display: inline-block; background: rgba(255,109,0,0.15); color: var(--accent); padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 600; margin-bottom: 10px; }
+  .yjd-title { font-size: 22px; font-weight: 800; color: var(--dark); line-height: 1.4; margin-bottom: 12px; }
+  .yjd-info { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--gray-500); padding-bottom: 16px; border-bottom: 1px solid var(--gray-100); }
+  .yjd-info img { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; }
+  .yjd-info .author { font-weight: 600; color: var(--dark); }
+  .yjd-body { padding: 24px 28px; font-size: 14px; color: var(--gray-700); line-height: 1.85; }
+  .yjd-body p { margin-bottom: 16px; }
+  .yjd-body img { width: 100%; border-radius: var(--radius-sm); margin: 16px 0; cursor: pointer; }
+  .yjd-body h3 { font-size: 16px; font-weight: 700; color: var(--dark); margin: 20px 0 10px; }
+  .yjd-body blockquote { border-left: 3px solid var(--accent); padding: 10px 16px; background: var(--accent-light); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; margin: 16px 0; font-size: 13px; color: var(--gray-600); }
+  .yjd-footer { padding: 16px 28px; border-top: 1px solid var(--gray-100); display: flex; align-items: center; justify-content: space-between; }
+  .yjd-reactions { display: flex; gap: 16px; }
+  .yjd-reactions button { background: var(--gray-50); border: 1px solid var(--gray-200); padding: 6px 14px; border-radius: 20px; font-size: 12px; font-family: inherit; cursor: pointer; display: flex; align-items: center; gap: 5px; transition: all 0.2s; color: var(--gray-600); }
+  .yjd-reactions button:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+  .yjd-share { font-size: 12px; color: var(--gray-500); cursor: pointer; padding: 6px 12px; border-radius: 20px; border: 1px solid var(--gray-200); background: var(--white); }
+  .yjd-share:hover { color: var(--primary); border-color: var(--primary); }
+  .yjd-comments { padding: 20px 28px; border-top: 1px solid var(--gray-100); }
+  .yjd-comments h4 { font-size: 14px; font-weight: 700; color: var(--dark); margin-bottom: 14px; }
+  .yjd-cmt { display: flex; gap: 10px; padding: 12px 0; border-bottom: 1px solid var(--gray-100); }
+  .yjd-cmt:last-child { border-bottom: none; }
+  .yjd-cmt-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--primary-bg); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: var(--primary); flex-shrink: 0; }
+  .yjd-cmt-body { flex: 1; }
+  .yjd-cmt-name { font-size: 12px; font-weight: 600; color: var(--dark); }
+  .yjd-cmt-date { font-size: 11px; color: var(--gray-500); margin-left: 6px; }
+  .yjd-cmt-text { font-size: 13px; color: var(--gray-700); margin-top: 4px; line-height: 1.5; }
+
+  /* OLD yj classes kept for home feed */
   .yj { background: var(--dark-card); border-radius: var(--radius); overflow: hidden; margin-bottom: 14px; transition: all 0.2s; cursor: pointer; }
   .yj:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
   .yj-hd { background: linear-gradient(135deg, var(--dark), #1e293b); padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; }
@@ -165,50 +245,12 @@
   .sh { color: rgba(255,255,255,0.5); font-size: 11px; background: none; border: none; font-family: inherit; cursor: pointer; }
   .sh:hover { color: white; }
 
-  /* ===== YAJANG LIST VIEW ===== */
-  .yjl-item { display: flex; gap: 16px; padding: 16px; background: var(--white); border-radius: var(--radius); margin-bottom: 10px; box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); cursor: pointer; transition: all 0.2s; align-items: flex-start; }
-  .yjl-item:hover { border-color: var(--primary-light); box-shadow: var(--shadow-md); transform: translateY(-1px); }
-  .yjl-thumb { width: 120px; height: 90px; border-radius: var(--radius-sm); overflow: hidden; flex-shrink: 0; background: var(--gray-100); }
-  .yjl-thumb img { width: 100%; height: 100%; object-fit: cover; }
-  .yjl-body { flex: 1; min-width: 0; }
-  .yjl-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
-  .yjl-date { font-size: 11px; color: var(--gray-500); }
-  .yjl-title { font-size: 15px; font-weight: 700; color: var(--dark); line-height: 1.4; margin-bottom: 4px; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
-  .yjl-desc { font-size: 12px; color: var(--gray-600); display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 6px; }
-  .yjl-stats { display: flex; gap: 12px; font-size: 11px; color: var(--gray-500); }
-
-  /* ===== YAJANG DETAIL VIEW ===== */
-  .yjd-wrap { max-width: 720px; margin: 0 auto; }
-  .yjd-back { display: inline-flex; align-items: center; gap: 6px; background: none; border: 1px solid var(--gray-200); color: var(--gray-600); padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 500; margin-bottom: 16px; cursor: pointer; transition: all 0.2s; }
-  .yjd-back:hover { color: var(--primary); border-color: var(--primary); }
-  .yjd-article { background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-md); border: 1px solid var(--gray-200); }
-  .yjd-head { padding: 28px 28px 20px; }
-  .yjd-cat { display: inline-block; background: rgba(255,109,0,0.15); color: var(--accent); padding: 3px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; margin-bottom: 12px; }
-  .yjd-title { font-size: 22px; font-weight: 800; color: var(--dark); line-height: 1.4; margin-bottom: 16px; }
-  .yjd-meta-row { display: flex; align-items: center; justify-content: space-between; }
-  .yjd-author { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--dark); }
-  .yjd-avatar { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; }
-  .yjd-date { font-size: 12px; color: var(--gray-500); }
-  .yjd-hero { background: var(--gray-50); }
-  .yjd-hero img { width: 100%; cursor: pointer; }
-  .yjd-body { padding: 24px 28px; font-size: 14px; color: var(--gray-700); line-height: 1.8; }
-  .yjd-body p { margin-bottom: 14px; }
-  .yjd-body strong { color: var(--dark); }
-  .yjd-actions { padding: 14px 28px; border-top: 1px solid var(--gray-100); display: flex; align-items: center; justify-content: space-between; }
-  .yjd-reactions { display: flex; gap: 8px; }
-  .yjd-react-btn { background: var(--gray-50); border: 1px solid var(--gray-200); padding: 6px 14px; border-radius: 20px; font-size: 12px; color: var(--gray-600); cursor: pointer; display: inline-flex; align-items: center; gap: 4px; transition: all 0.2s; }
-  .yjd-react-btn:hover { border-color: var(--accent); color: var(--accent); }
-  .yjd-share-btn { background: none; border: 1px solid var(--gray-200); padding: 6px 14px; border-radius: 20px; font-size: 12px; color: var(--gray-600); cursor: pointer; }
-  .yjd-share-btn:hover { border-color: var(--primary); color: var(--primary); }
-  .yjd-comments { padding: 20px 28px; border-top: 1px solid var(--gray-100); }
-  .yjd-cm-hd { font-size: 14px; font-weight: 700; color: var(--dark); margin-bottom: 14px; }
-  .yjd-cm-item { display: flex; gap: 10px; align-items: baseline; padding: 10px 0; border-bottom: 1px solid var(--gray-100); font-size: 13px; }
-  .yjd-cm-author { font-weight: 600; color: var(--dark); flex-shrink: 0; }
-  .yjd-cm-text { flex: 1; color: var(--gray-700); }
-  .yjd-cm-time { font-size: 11px; color: var(--gray-500); flex-shrink: 0; }
-  .yjd-cm-input { display: flex; gap: 8px; margin-top: 14px; }
-  .yjd-cm-input input { flex: 1; padding: 9px 14px; border: 1px solid var(--gray-200); border-radius: 8px; font-size: 13px; outline: none; font-family: inherit; }
-  .yjd-cm-input input:focus { border-color: var(--primary); }
+  @media (max-width: 600px) {
+    .yjl-thumb { width: 100px; height: 75px; }
+    .yjl-title { font-size: 13px; }
+    .yjd-title { font-size: 18px; }
+    .yjd-body { padding: 16px 18px; }
+  }
 
   /* ===== SIDEBAR ===== */
   .sidebar { display: flex; flex-direction: column; gap: 14px; }
@@ -621,105 +663,34 @@
 <!-- YAJANG (리스트 + 상세) -->
 <!-- ============================================================ -->
 <div class="page-section" id="page-yajang">
-<div class="container" style="display:block;max-width:960px;margin:0 auto;">
-  <div class="sec-hd"><h3><img src="sample_images/logo.png" style="width:30px;height:30px;border-radius:50%;object-fit:cover;display:inline-block;" alt=""> 야장마차 콘텐츠</h3></div>
-  <div class="df"><div class="dc active" onclick="yjFilter('all',this)">전체</div><div class="dc" onclick="yjFilter('result',this)">경기 결과</div><div class="dc" onclick="yjFilter('highlight',this)">하이라이트</div><div class="dc" onclick="yjFilter('news',this)">야장마차 뉴스</div><div class="dc" onclick="yjFilter('tournament',this)">대회</div></div>
-
+<div class="container" style="display:block;">
   <!-- 리스트 뷰 -->
-  <div id="yjList">
-    <div class="yjl-item" data-cat="result" onclick="yjDetail(0)">
-      <div class="yjl-thumb"><img src="sample_images/001.png" alt=""></div>
-      <div class="yjl-body">
-        <div class="yjl-meta"><span class="yj-type">경기 결과</span><span class="yjl-date">2026.03.15</span></div>
-        <div class="yjl-title">2026 고교야구 주말리그 전반기 3월 15일 경기 결과 종합</div>
-        <div class="yjl-desc">서울고 1:2 경기상고, 광주고 9:8 산의고, 서울디지텍고 2:0 산의고 외</div>
-        <div class="yjl-stats"><span>&#10084;&#65039; 542</span><span>&#128172; 87</span><span>&#128065; 4.2k</span></div>
-      </div>
-    </div>
-    <div class="yjl-item" data-cat="result" onclick="yjDetail(1)">
-      <div class="yjl-thumb"><img src="sample_images/007.png" alt=""></div>
-      <div class="yjl-body">
-        <div class="yjl-meta"><span class="yj-type">경기 결과</span><span class="yjl-date">2026.03.15</span></div>
-        <div class="yjl-title">포항제철고 5:1 도기고 — 박상아 3타점 홈런, MVP 이규도</div>
-        <div class="yjl-desc">박상아 선수가 3회 3타점 홈런을 기록하며 포항제철고의 대승을 이끌었습니다.</div>
-        <div class="yjl-stats"><span>&#10084;&#65039; 342</span><span>&#128172; 56</span><span>&#128065; 2.4k</span></div>
-      </div>
-    </div>
-    <div class="yjl-item" data-cat="result" onclick="yjDetail(2)">
-      <div class="yjl-thumb"><img src="sample_images/008.png" alt=""></div>
-      <div class="yjl-body">
-        <div class="yjl-meta"><span class="yj-type">경기 결과</span><span class="yjl-date">2026.03.15</span></div>
-        <div class="yjl-title">서울고 1:2 경기상고 — MVP 김승현, 에이스 완투 포스</div>
-        <div class="yjl-desc">경기상고 김승현 투수가 에이스다운 완투로 서울고를 잡았습니다.</div>
-        <div class="yjl-stats"><span>&#10084;&#65039; 218</span><span>&#128172; 31</span><span>&#128065; 1.8k</span></div>
-      </div>
-    </div>
-    <div class="yjl-item" data-cat="news" onclick="yjDetail(3)">
-      <div class="yjl-thumb"><img src="sample_images/images.jpg" alt=""></div>
-      <div class="yjl-body">
-        <div class="yjl-meta"><span class="yj-type">야장마차 뉴스</span><span class="yjl-date">2026.03.15</span></div>
-        <div class="yjl-title">'황우경 끝내기 2루타' 소격, 극적으로 연장 끝 끝났다</div>
-        <div class="yjl-desc">소격 vs 광주 연장전 승부, 이 경기의 모든 하이라이트와 주요 기록 정리</div>
-        <div class="yjl-stats"><span>&#10084;&#65039; 456</span><span>&#128172; 72</span><span>&#128065; 3.1k</span></div>
-      </div>
-    </div>
-    <div class="yjl-item" data-cat="news" onclick="yjDetail(4)">
-      <div class="yjl-thumb"><img src="sample_images/006.png" alt=""></div>
-      <div class="yjl-body">
-        <div class="yjl-meta"><span class="yj-type">야장마차 뉴스</span><span class="yjl-date">2026.03.15</span></div>
-        <div class="yjl-title">'김민혁 11K·임재경 올 퍼펙트' 전흥, 연장 끝에 화순 잡아</div>
-        <div class="yjl-desc">2026 고교야구 주말리그 전반기 주요 경기 결과와 하이라이트</div>
-        <div class="yjl-stats"><span>&#10084;&#65039; 342</span><span>&#128172; 56</span><span>&#128065; 2.4k</span></div>
-      </div>
-    </div>
-    <div class="yjl-item" data-cat="highlight" onclick="yjDetail(5)">
-      <div class="yjl-thumb"><img src="sample_images/002.png" alt=""></div>
-      <div class="yjl-body">
-        <div class="yjl-meta"><span class="yj-type" style="background:rgba(76,175,80,0.2);color:#43a047;">선수 하이라이트</span><span class="yjl-date">2026.03.14</span></div>
-        <div class="yjl-title">신승민, 사이클 히트 달성! (NMMI 2학년)</div>
-        <div class="yjl-desc">1회 안타 / 3회 홈런 / 3회 2루타 / 5회 3루타 — HIT FOR THE CYCLE</div>
-        <div class="yjl-stats"><span>&#10084;&#65039; 892</span><span>&#128172; 124</span><span>&#128065; 5.6k</span></div>
-      </div>
-    </div>
-    <div class="yjl-item" data-cat="tournament" onclick="yjDetail(6)">
-      <div class="yjl-thumb"><img src="sample_images/004.png" alt=""></div>
-      <div class="yjl-body">
-        <div class="yjl-meta"><span class="yj-type" style="background:rgba(30,136,229,0.2);color:#1e88e5;">U-15 대회</span><span class="yjl-date">2026.03.15</span></div>
-        <div class="yjl-title">2026 U-15 상반기 전국주니어야구대회 결과</div>
-        <div class="yjl-desc">광명시 13:0 천안시 (콜드승), 원목·용인 4:4 무승부</div>
-        <div class="yjl-stats"><span>&#10084;&#65039; 198</span><span>&#128172; 24</span><span>&#128065; 1.5k</span></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 상세 뷰 (처음에 숨김) -->
-  <div id="yjDetailView" class="yjd-wrap" style="display:none;">
-    <button class="yjd-back" onclick="yjBack()">&larr; 목록으로</button>
-    <div class="yjd-article">
-      <div class="yjd-head">
-        <div class="yjd-cat" id="yjdCat">경기 결과</div>
-        <h2 class="yjd-title" id="yjdTitle"></h2>
-        <div class="yjd-meta-row">
-          <div class="yjd-author"><img src="sample_images/logo.png" class="yjd-avatar"><span>야장마차</span></div>
-          <span class="yjd-date" id="yjdDate"></span>
+  <div id="yjListView">
+    <div class="yjl-wrap">
+      <div class="sec-hd"><h3><img src="sample_images/logo.png" style="width:30px;height:30px;border-radius:50%;object-fit:cover;display:inline-block;vertical-align:middle;" alt=""> 야장마차 콘텐츠</h3></div>
+      <div class="yjl-toolbar">
+        <div class="yjl-tabs">
+          <button class="yjl-tab active" onclick="yjFilter('all',this)">전체</button>
+          <button class="yjl-tab" onclick="yjFilter('schedule',this)">경기일정·결과</button>
+          <button class="yjl-tab" onclick="yjFilter('highlight',this)">하이라이트</button>
+          <button class="yjl-tab" onclick="yjFilter('etc',this)">기타</button>
+        </div>
+        <div class="yjl-search">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+          <input type="text" id="yjSearchInput" placeholder="콘텐츠 검색..." oninput="yjSearch(this.value)">
+        </div>
+        <div class="yjl-view-toggle">
+          <button class="yjl-vbtn active" onclick="yjViewMode('grid',this)" title="카드형"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="6" height="6" rx="1.5" fill="currentColor"/><rect x="9" y="1" width="6" height="6" rx="1.5" fill="currentColor"/><rect x="1" y="9" width="6" height="6" rx="1.5" fill="currentColor"/><rect x="9" y="9" width="6" height="6" rx="1.5" fill="currentColor"/></svg></button>
+          <button class="yjl-vbtn" onclick="yjViewMode('list',this)" title="리스트형"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="4" height="3" rx="1" fill="currentColor"/><rect x="7" y="1.5" width="8" height="2" rx="1" fill="currentColor"/><rect x="1" y="6.5" width="4" height="3" rx="1" fill="currentColor"/><rect x="7" y="7" width="8" height="2" rx="1" fill="currentColor"/><rect x="1" y="12" width="4" height="3" rx="1" fill="currentColor"/><rect x="7" y="12.5" width="8" height="2" rx="1" fill="currentColor"/></svg></button>
         </div>
       </div>
-      <div class="yjd-hero"><img id="yjdImg" src="" alt="" onclick="openLB2(this.src)"></div>
-      <div class="yjd-body" id="yjdBody"></div>
-      <div class="yjd-actions">
-        <div class="yjd-reactions"><button class="yjd-react-btn">&#10084;&#65039; <span id="yjdLikes">0</span></button><button class="yjd-react-btn">&#128172; <span id="yjdComments">0</span></button><button class="yjd-react-btn">&#128065; <span id="yjdViews">0</span></button></div>
-        <button class="yjd-share-btn">&#128279; 공유</button>
-      </div>
-      <!-- 댓글 미리보기 -->
-      <div class="yjd-comments">
-        <div class="yjd-cm-hd">댓글</div>
-        <div class="yjd-cm-item"><span class="yjd-cm-author">야구맘서울</span><span class="yjd-cm-text">경기 직관했는데 정말 대단했습니다!</span><span class="yjd-cm-time">2시간 전</span></div>
-        <div class="yjd-cm-item"><span class="yjd-cm-author">야구정보통</span><span class="yjd-cm-text">하이라이트 영상도 올려주세요~</span><span class="yjd-cm-time">1시간 전</span></div>
-        <div class="yjd-cm-input"><input type="text" placeholder="댓글을 입력하세요..."><button class="btn btn-accent" style="padding:7px 14px;font-size:12px;">등록</button></div>
-      </div>
+      <div class="yjl-list grid-view" id="yjList"></div>
     </div>
   </div>
-
+  <!-- 상세 뷰 -->
+  <div id="yjDetailView" style="display:none;">
+    <div class="yjd-wrap" id="yjDetailContent"></div>
+  </div>
 </div>
 </div>
 
@@ -1141,54 +1112,133 @@
   function prevS(){goS((cs-1+ts)%ts);}
   setInterval(nextS,5000);
 
-  // dc 일반 탭 토글 (야장마차 제외 — 별도 yjFilter 사용)
-  document.querySelectorAll('.dc').forEach(c=>{if(!c.hasAttribute('onclick')){c.addEventListener('click',()=>{c.parentElement.querySelectorAll('.dc').forEach(x=>x.classList.remove('active'));c.classList.add('active');});}});
+  document.querySelectorAll('.dc').forEach(c=>{c.addEventListener('click',()=>{c.parentElement.querySelectorAll('.dc').forEach(x=>x.classList.remove('active'));c.classList.add('active');});});
   document.querySelectorAll('.bt button').forEach(t=>{t.addEventListener('click',()=>{t.parentElement.querySelectorAll('button').forEach(x=>x.classList.remove('active'));t.classList.add('active');});});
 
-  // 야장마차 콘텐츠 데이터
-  const yjData=[
-    {cat:'경기 결과',title:'2026 고교야구 주말리그 전반기 3월 15일 경기 결과 종합',date:'2026.03.15',img:'sample_images/001.png',likes:'542',comments:'87',views:'4.2k',
-     body:'<p><strong>2026 고교야구 주말리그 전반기</strong> 3월 15일(토) 경기 결과를 종합 정리합니다.</p><p>서울고 1:2 경기상고 — 경기상고 김승현 투수가 에이스다운 완투승을 거뒀습니다. 포항제철고 5:1 도기고 — 박상아 선수의 3타점 홈런이 승리를 이끌었습니다.</p><p>광주고 9:8 산의고 — 시소게임 끝에 광주고가 역전승. 서울디지텍고 2:0 산의고 — 투수전 끝에 완봉승을 기록했습니다.</p>'},
-    {cat:'경기 결과',title:'포항제철고 5:1 도기고 — 박상아 3타점 홈런, MVP 이규도',date:'2026.03.15',img:'sample_images/007.png',likes:'342',comments:'56',views:'2.4k',
-     body:'<p><strong>포항제철고가 도기고를 5:1로 제압</strong>했습니다.</p><p>3회초 박상아 선수가 주자 2명을 두고 3타점 홈런을 터뜨리며 경기의 분위기를 결정지었습니다. 이규도 투수는 4이닝 3실점으로 선발 임무를 마쳤으나 타선의 지원에 힘입어 승리투수가 되었습니다.</p><p>포항제철고는 이번 승리로 전반기 충청권 상위권 진입에 성공했습니다.</p>'},
-    {cat:'경기 결과',title:'서울고 1:2 경기상고 — MVP 김승현, 에이스 완투 포스',date:'2026.03.15',img:'sample_images/008.png',likes:'218',comments:'31',views:'1.8k',
-     body:'<p><strong>경기상고 김승현 투수가 에이스다운 완투승</strong>을 기록했습니다.</p><p>서울고 타선을 9이닝 동안 1실점으로 막아내며 팀의 승리를 이끌었습니다. 경기상고는 5회말 결승 적시타로 2:1 리드를 잡은 뒤, 김승현의 안정적인 투구로 경기를 마무리했습니다.</p>'},
-    {cat:'야장마차 뉴스',title:"'황우경 끝내기 2루타' 소격, 극적으로 연장 끝 끝났다",date:'2026.03.15',img:'sample_images/images.jpg',likes:'456',comments:'72',views:'3.1k',
-     body:'<p><strong>소격 vs 광주 연장전 승부</strong>에서 황우경 선수가 끝내기 2루타를 터뜨리며 극적인 승리를 거뒀습니다.</p><p>7회까지 3:3 동점이었던 경기는 연장 8회까지 이어졌고, 8회말 2사 2루 상황에서 황우경의 좌중간 적시 2루타가 경기를 결정지었습니다.</p><p>이 경기의 모든 하이라이트와 주요 기록을 정리합니다.</p>'},
-    {cat:'야장마차 뉴스',title:"'김민혁 11K·임재경 올 퍼펙트' 전흥, 연장 끝에 화순 잡아",date:'2026.03.15',img:'sample_images/006.png',likes:'342',comments:'56',views:'2.4k',
-     body:'<p><strong>2026 고교야구 주말리그 전반기</strong> 주요 경기 결과와 하이라이트입니다.</p><p>김민혁 투수는 11개의 탈삼진을 기록하며 압도적인 투구를 보여줬고, 임재경은 올 퍼펙트(모든 타석 안타)를 달성했습니다. 전흥고는 연장전 끝에 화순고를 꺾으며 승리를 가져갔습니다.</p>'},
-    {cat:'선수 하이라이트',title:'신승민, 사이클 히트 달성! (NMMI 2학년)',date:'2026.03.14',img:'sample_images/002.png',likes:'892',comments:'124',views:'5.6k',
-     body:'<p><strong>신승민 선수(NMMI 2학년)가 사이클 히트(HIT FOR THE CYCLE)를 달성</strong>했습니다!</p><p>1회: 안타 / 3회: 홈런 / 3회: 2루타 / 5회: 3루타</p><p>한 경기에서 안타, 2루타, 3루타, 홈런을 모두 기록하는 사이클 히트는 야구에서 가장 달성하기 어려운 기록 중 하나입니다. 해외에서 활약 중인 한국 엘리트 야구 선수의 뛰어난 성과를 축하합니다!</p>'},
-    {cat:'U-15 대회',title:'2026 U-15 상반기 전국주니어야구대회 결과',date:'2026.03.15',img:'sample_images/004.png',likes:'198',comments:'24',views:'1.5k',
-     body:'<p><strong>2026 U-15 상반기 전국주니어야구대회</strong> 조별리그 결과입니다.</p><p>광명시 13:0 천안시 (콜드승, 5이닝) — 광명시가 압도적인 타력으로 콜드게임을 만들었습니다. 원목·용인 4:4 무승부 — 팽팽한 접전 끝에 무승부로 마무리되었습니다.</p><p>내일 이어지는 조별리그 및 토너먼트 일정에도 많은 관심 부탁드립니다.</p>'}
+  // ===== 야장마차 리스트/상세 =====
+  const yjData = [
+    { cat:'schedule', catName:'경기일정·결과', title:'2026 고교야구 주말리그 전반기 3월 15일 경기 결과 종합', date:'2026.03.15', img:'sample_images/001.png', likes:542, comments:87, views:'4.2k',
+      body:'<h3>주말리그 전반기 3월 15일 결과</h3><p>2026 고교야구 주말리그 전반기 3월 15일에 열린 경기 결과를 종합하여 전해드립니다.</p><img src="sample_images/001.png" onclick="openLB2(\'sample_images/001.png\')"><p>서울고 1:2 경기상고, 광주고 9:8 산의고, 서울디지텍고 2:0 산의고 외 다수 경기가 진행되었습니다. 특히 광주고와 산의고의 경기는 시소 게임 끝에 광주고가 9:8로 신승을 거두며 뜨거운 승부를 보여줬습니다.</p><blockquote>오늘의 하이라이트: 광주고 9회말 역전 끝내기!</blockquote><p>전반기 일정이 절반을 넘기면서 각 팀들의 순위 경쟁이 치열해지고 있습니다. 충남고가 여전히 선두를 유지하고 있으며, 대전고와 공주고가 바짝 뒤쫓고 있습니다.</p>',
+      cmts:[{name:'야구사랑',text:'광주고 역전 정말 대단했어요!',date:'03.15'},{name:'충남팬',text:'충남고 화이팅! 전반기 우승하자',date:'03.15'},{name:'엘리트맘',text:'우리 아이 경기 결과도 올려주세요~',date:'03.15'}]
+    },
+    { cat:'schedule', catName:'경기일정·결과', title:'포항제철고 5:1 도기고 — 박상아 3타점 홈런, MVP 이규도', date:'2026.03.15', img:'sample_images/007.png', likes:342, comments:56, views:'2.4k',
+      body:'<h3>포항제철고, 압도적 승리!</h3><p>포항제철고가 도기고를 상대로 5:1 완승을 거뒀습니다.</p><img src="sample_images/007.png" onclick="openLB2(\'sample_images/007.png\')"><p>박상아 선수가 3회 3타점 홈런을 기록하며 포항제철고의 대승을 이끌었습니다. 이날 MVP는 완벽한 투구를 선보인 이규도 선수가 차지했습니다.</p><blockquote>박상아: "팀원들이 잘 도와줘서 좋은 결과가 나왔습니다."</blockquote><p>포항제철고는 이 승리로 시즌 전적 7승 2패를 기록하며 상위권을 유지하고 있습니다.</p>',
+      cmts:[{name:'포항야구팬',text:'박상아 홈런 너무 멋있었어!',date:'03.15'},{name:'도기고응원단',text:'다음엔 이기자! 화이팅',date:'03.15'}]
+    },
+    { cat:'schedule', catName:'경기일정·결과', title:'서울고 1:2 경기상고 — MVP 김승현, 에이스 완투 포스', date:'2026.03.15', img:'sample_images/008.png', likes:218, comments:31, views:'1.8k',
+      body:'<h3>김승현, 에이스다운 완투!</h3><p>경기상고 김승현 투수가 에이스다운 완투로 서울고를 2:1로 꺾었습니다.</p><img src="sample_images/008.png" onclick="openLB2(\'sample_images/008.png\')"><p>김승현은 9이닝 동안 안타 4개만 허용하며 완투승을 기록했습니다. 결승타는 7회 이정민의 적시타로 만들어졌습니다.</p><p>서울고 역시 견고한 수비를 보여줬지만, 한 끗 차이로 아쉽게 패했습니다.</p>',
+      cmts:[{name:'고교야구덕후',text:'김승현 진짜 프로급이다',date:'03.15'}]
+    },
+    { cat:'etc', catName:'기타', title:"'황우경 끝내기 2루타' 소격, 극적으로 연장 끝 끝났다", date:'2026.03.15', img:'sample_images/images.jpg', likes:456, comments:72, views:'3.1k',
+      body:'<h3>소격의 극적인 연장 승리</h3><p>소격 vs 광주 경기가 연장전까지 이어지는 접전 끝에 소격의 극적인 승리로 마무리됐습니다.</p><img src="sample_images/images.jpg" onclick="openLB2(\'sample_images/images.jpg\')"><p>연장 11회말, 황우경 선수가 2루타를 터뜨리며 끝내기를 완성했습니다. 이 경기는 양 팀 합쳐 30안타가 쏟아진 타격전이었습니다.</p><blockquote>황우경: "마지막 타석에서 반드시 끝내겠다는 생각으로 집중했습니다."</blockquote><p>이 경기의 모든 하이라이트와 주요 기록을 정리했습니다.</p>',
+      cmts:[{name:'소격팬',text:'황우경 대박!! 끝내기 너무 시원하다',date:'03.15'},{name:'광주고맘',text:'아쉽지만 멋진 경기였어요',date:'03.15'},{name:'야장마차팬',text:'이런 기사 계속 올려주세요!',date:'03.15'}]
+    },
+    { cat:'etc', catName:'기타', title:"'김민혁 11K·임재경 올 퍼펙트' 전흥, 연장 끝에 화순 잡아", date:'2026.03.15', img:'sample_images/006.png', likes:342, comments:56, views:'2.4k',
+      body:'<h3>전흥의 투타 조화</h3><p>전흥이 화순을 상대로 연장 접전 끝에 승리를 거뒀습니다.</p><img src="sample_images/006.png" onclick="openLB2(\'sample_images/006.png\')"><p>이날 김민혁 투수는 11개 삼진을 잡아내며 압도적인 피칭을 선보였고, 임재경은 4타수 4안타 올 퍼펙트로 타선을 이끌었습니다.</p><p>2026 고교야구 주말리그 전반기 주요 경기 결과와 하이라이트를 전해드립니다.</p>',
+      cmts:[{name:'전흥팬',text:'김민혁 11K 미쳤다 ㄷㄷ',date:'03.15'},{name:'화순파이팅',text:'다음엔 꼭 이기자!',date:'03.15'}]
+    },
+    { cat:'highlight', catName:'선수 하이라이트', title:'신승민, 사이클 히트 달성! (NMMI 2학년)', date:'2026.03.14', img:'sample_images/002.png', likes:892, comments:124, views:'5.6k',
+      body:'<h3>역사적인 사이클 히트!</h3><p>NMMI 소속 2학년 신승민 선수가 사이클 히트를 달성하는 대기록을 세웠습니다.</p><img src="sample_images/002.png" onclick="openLB2(\'sample_images/002.png\')"><p>1회 안타, 3회 홈런, 5회 2루타, 7회 3루타로 사이클 히트를 완성했습니다. 아마추어 야구에서 사이클 히트는 매우 드문 기록입니다.</p><blockquote>신승민: "경기 중에는 사이클 히트를 의식하지 않았는데, 7회 3루타 후에 동료들이 알려줘서 알았습니다."</blockquote><p>신승민 선수는 현재 타율 .450으로 리그 전체 1위를 달리고 있습니다.</p>',
+      cmts:[{name:'야구덕후',text:'사이클 히트 ㄷㄷ 대단하다',date:'03.14'},{name:'NMMI팬',text:'우리 학교 자랑스럽다!',date:'03.14'},{name:'스카우트맨',text:'프로에서도 주목할 만한 선수',date:'03.14'},{name:'엘리트맘',text:'부모님이 정말 자랑스러우시겠어요',date:'03.14'}]
+    },
+    { cat:'etc', catName:'기타', title:'2026 U-15 상반기 전국주니어야구대회 결과', date:'2026.03.15', img:'sample_images/004.png', likes:198, comments:24, views:'1.5k',
+      body:'<h3>U-15 전국주니어야구대회</h3><p>2026 U-15 상반기 전국주니어야구대회 결과를 전해드립니다.</p><img src="sample_images/004.png" onclick="openLB2(\'sample_images/004.png\')"><p>광명시 13:0 천안시 (5회 콜드), 원목·용인 4:4 무승부 등 치열한 경기가 펼쳐졌습니다. 특히 광명시는 압도적인 타력으로 5회 콜드 승을 거뒀습니다.</p><p>유소년 야구의 미래를 밝히는 어린 선수들의 열정적인 경기를 응원합니다.</p>',
+      cmts:[{name:'주니어팬',text:'유소년 야구도 이렇게 커버해주셔서 감사해요',date:'03.15'}]
+    }
   ];
+
+  let yjCurFilter='all';
+  let yjCurKeyword='';
+
+  function yjRenderList(){
+    const el=document.getElementById('yjList');
+    const kw=yjCurKeyword.toLowerCase();
+    let html='';
+    yjData.forEach((d,i)=>{
+      if(yjCurFilter!=='all' && d.cat!==yjCurFilter) return;
+      if(kw && !d.title.toLowerCase().includes(kw) && !d.body.replace(/<[^>]+>/g,'').toLowerCase().includes(kw) && !d.catName.toLowerCase().includes(kw)) return;
+      html+=`<div class="yjl-item" data-cat="${d.cat}" onclick="yjDetail(${i})">
+        <div class="yjl-thumb"><img src="${d.img}" alt=""></div>
+        <div class="yjl-body">
+          <div class="yjl-cat">${d.catName}</div>
+          <div class="yjl-title">${d.title}</div>
+          <div class="yjl-desc">${d.body.replace(/<[^>]+>/g,'').substring(0,80)}...</div>
+          <div class="yjl-meta">
+            <span>&#10084;&#65039; ${d.likes}</span>
+            <span>&#128172; ${d.comments}</span>
+            <span>&#128065; ${d.views}</span>
+            <span>${d.date}</span>
+          </div>
+        </div>
+      </div>`;
+    });
+    if(!html) html='<div style="text-align:center;padding:40px 20px;color:var(--gray-500);font-size:14px;">검색 결과가 없습니다.</div>';
+    el.innerHTML=html;
+  }
+  yjRenderList();
+
+  function yjFilter(cat,el){
+    document.querySelectorAll('.yjl-tab').forEach(t=>t.classList.remove('active'));
+    el.classList.add('active');
+    yjCurFilter=cat;
+    yjRenderList();
+  }
+
+  function yjSearch(val){
+    yjCurKeyword=val.trim();
+    yjRenderList();
+  }
 
   function yjDetail(idx){
     const d=yjData[idx];
-    document.getElementById('yjdCat').textContent=d.cat;
-    document.getElementById('yjdTitle').textContent=d.title;
-    document.getElementById('yjdDate').textContent=d.date;
-    document.getElementById('yjdImg').src=d.img;
-    document.getElementById('yjdBody').innerHTML=d.body;
-    document.getElementById('yjdLikes').textContent=d.likes;
-    document.getElementById('yjdComments').textContent=d.comments;
-    document.getElementById('yjdViews').textContent=d.views;
-    document.getElementById('yjList').style.display='none';
+    let cmtsHtml='';
+    if(d.cmts){d.cmts.forEach(c=>{
+      cmtsHtml+=`<div class="yjd-cmt"><div class="yjd-cmt-avatar">${c.name[0]}</div><div class="yjd-cmt-body"><span class="yjd-cmt-name">${c.name}</span><span class="yjd-cmt-date">${c.date}</span><div class="yjd-cmt-text">${c.text}</div></div></div>`;
+    });}
+    document.getElementById('yjDetailContent').innerHTML=`
+      <button class="yjd-back" onclick="yjBack()">&#8592; 목록으로</button>
+      <div class="yjd-article">
+        <img class="yjd-hero" src="${d.img}" onclick="openLB2('${d.img}')" alt="">
+        <div class="yjd-header">
+          <div class="yjd-cat">${d.catName}</div>
+          <div class="yjd-title">${d.title}</div>
+          <div class="yjd-info">
+            <img src="sample_images/logo.png" alt="">
+            <span class="author">야장마차</span>
+            <span>${d.date}</span>
+            <span>&#128065; ${d.views}</span>
+          </div>
+        </div>
+        <div class="yjd-body">${d.body}</div>
+        <div class="yjd-footer">
+          <div class="yjd-reactions">
+            <button>&#10084;&#65039; ${d.likes}</button>
+            <button>&#128172; ${d.comments}</button>
+          </div>
+          <button class="yjd-share">&#128279; 공유</button>
+        </div>
+        <div class="yjd-comments">
+          <h4>&#128172; 댓글 ${d.cmts?d.cmts.length:0}개</h4>
+          ${cmtsHtml}
+        </div>
+      </div>`;
+    document.getElementById('yjListView').style.display='none';
     document.getElementById('yjDetailView').style.display='block';
-    window.scrollTo({top:document.getElementById('page-yajang').offsetTop+60,behavior:'smooth'});
+    window.scrollTo({top:0,behavior:'smooth'});
   }
+
   function yjBack(){
     document.getElementById('yjDetailView').style.display='none';
-    document.getElementById('yjList').style.display='block';
+    document.getElementById('yjListView').style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
   }
-  function yjFilter(cat,el){
-    el.parentElement.querySelectorAll('.dc').forEach(x=>x.classList.remove('active'));
+
+  function yjViewMode(mode,el){
+    document.querySelectorAll('.yjl-vbtn').forEach(b=>b.classList.remove('active'));
     el.classList.add('active');
-    document.querySelectorAll('#yjList .yjl-item').forEach(item=>{
-      if(cat==='all'){item.style.display='flex';}
-      else{item.style.display=item.dataset.cat===cat?'flex':'none';}
-    });
-    yjBack();
+    const list=document.getElementById('yjList');
+    list.classList.remove('grid-view','list-view');
+    list.classList.add(mode+'-view');
   }
 
   // 경기센터 카테고리 필터
@@ -1209,3 +1259,4 @@
 </script>
 </body>
 </html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
