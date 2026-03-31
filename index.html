@@ -74,6 +74,7 @@
 
   /* ===== LAYOUT ===== */
   .container { max-width: 1200px; margin: 0 auto; padding: 20px; display: grid; grid-template-columns: 1fr 320px; gap: 20px; }
+  .container.full { display: block; }
 
   /* ===== HERO ===== */
   .hero { border-radius: var(--radius); overflow: hidden; position: relative; height: 280px; grid-column: 1 / -1; background: var(--dark); }
@@ -143,7 +144,7 @@
   .match-d { font-size: 12px; color: var(--gray-500); }
 
   /* ===== YAJANG LIST VIEW ===== */
-  .yjl-wrap { max-width: 1200px; margin: 0 auto; }
+  .yjl-wrap { max-width: 100%; }
   .yjl-toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; }
   .yjl-search { position: relative; }
   .yjl-search input { width: 220px; padding: 7px 14px 7px 34px; border: 1px solid var(--gray-200); border-radius: 20px; font-size: 13px; font-family: inherit; background: var(--white); outline: none; transition: all 0.2s; }
@@ -191,11 +192,10 @@
   @media (max-width: 700px) { .yjl-list.grid-view { grid-template-columns: repeat(2, 1fr); } }
 
   /* ===== YAJANG DETAIL VIEW ===== */
-  .yjd-wrap { max-width: 720px; margin: 0 auto; }
+  .yjd-wrap { max-width: 100%; }
   .yjd-back { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: var(--gray-600); cursor: pointer; padding: 8px 14px; border-radius: var(--radius-sm); background: var(--white); border: 1px solid var(--gray-200); margin-bottom: 16px; transition: all 0.2s; }
   .yjd-back:hover { color: var(--primary); border-color: var(--primary); }
   .yjd-article { background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-md); }
-  .yjd-hero { width: 100%; max-height: 400px; object-fit: cover; cursor: pointer; }
   .yjd-header { padding: 24px 28px 16px; }
   .yjd-cat { display: inline-block; background: rgba(255,109,0,0.15); color: var(--accent); padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 600; margin-bottom: 10px; }
   .yjd-title { font-size: 22px; font-weight: 800; color: var(--dark); line-height: 1.4; margin-bottom: 12px; }
@@ -204,7 +204,7 @@
   .yjd-info .author { font-weight: 600; color: var(--dark); }
   .yjd-body { padding: 24px 28px; font-size: 14px; color: var(--gray-700); line-height: 1.85; }
   .yjd-body p { margin-bottom: 16px; }
-  .yjd-body img { width: 100%; border-radius: var(--radius-sm); margin: 16px 0; cursor: pointer; }
+  .yjd-body img { width: 60%; border-radius: var(--radius-sm); margin: 16px 0; cursor: pointer; }
   .yjd-body h3 { font-size: 16px; font-weight: 700; color: var(--dark); margin: 20px 0 10px; }
   .yjd-body blockquote { border-left: 3px solid var(--accent); padding: 10px 16px; background: var(--accent-light); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; margin: 16px 0; font-size: 13px; color: var(--gray-600); }
   .yjd-footer { padding: 16px 28px; border-top: 1px solid var(--gray-100); display: flex; align-items: center; justify-content: space-between; }
@@ -215,13 +215,56 @@
   .yjd-share:hover { color: var(--primary); border-color: var(--primary); }
   .yjd-comments { padding: 20px 28px; border-top: 1px solid var(--gray-100); }
   .yjd-comments h4 { font-size: 14px; font-weight: 700; color: var(--dark); margin-bottom: 14px; }
-  .yjd-cmt { display: flex; gap: 10px; padding: 12px 0; border-bottom: 1px solid var(--gray-100); }
-  .yjd-cmt:last-child { border-bottom: none; }
-  .yjd-cmt-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--primary-bg); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: var(--primary); flex-shrink: 0; }
-  .yjd-cmt-body { flex: 1; }
-  .yjd-cmt-name { font-size: 12px; font-weight: 600; color: var(--dark); }
-  .yjd-cmt-date { font-size: 11px; color: var(--gray-500); margin-left: 6px; }
-  .yjd-cmt-text { font-size: 13px; color: var(--gray-700); margin-top: 4px; line-height: 1.5; }
+  /* 댓글 쓰기 폼 */
+  .cmt-write { display: flex; gap: 10px; margin-bottom: 20px; align-items: flex-start; }
+  .cmt-write-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--primary-light)); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: white; flex-shrink: 0; }
+  .cmt-write-box { flex: 1; background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-sm); overflow: hidden; transition: border-color 0.2s; }
+  .cmt-write-box:focus-within { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(26,35,126,0.08); }
+  .cmt-write-box textarea { width: 100%; border: none; padding: 10px 14px; font-size: 13px; font-family: inherit; resize: none; background: transparent; outline: none; min-height: 44px; line-height: 1.5; color: var(--dark); }
+  .cmt-write-bar { display: flex; align-items: center; justify-content: space-between; padding: 6px 10px; border-top: 1px solid var(--gray-100); }
+  .cmt-write-bar .cmt-img-btn { display: flex; align-items: center; gap: 4px; font-size: 12px; color: var(--gray-500); cursor: pointer; padding: 4px 8px; border-radius: 4px; background: none; border: none; font-family: inherit; transition: all 0.2s; }
+  .cmt-write-bar .cmt-img-btn:hover { color: var(--primary); background: var(--primary-bg); }
+  .cmt-write-bar .cmt-img-btn svg { flex-shrink: 0; }
+  .cmt-write-bar .cmt-submit { padding: 5px 14px; font-size: 12px; font-weight: 600; border-radius: 4px; background: var(--primary); color: white; border: none; font-family: inherit; cursor: pointer; transition: background 0.2s; }
+  .cmt-write-bar .cmt-submit:hover { background: var(--primary-light); }
+  .cmt-img-preview { padding: 6px 14px 10px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .cmt-img-preview img { width: 60px; height: 60px; object-fit: cover; border-radius: 6px; border: 1px solid var(--gray-200); }
+  .cmt-img-preview .cmt-img-rm { position: relative; }
+  .cmt-img-preview .cmt-img-rm-btn { position: absolute; top: -4px; right: -4px; width: 16px; height: 16px; border-radius: 50%; background: var(--red); color: white; font-size: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; line-height: 1; }
+  /* 댓글 아이템 */
+  .cmt-item { padding: 14px 0; border-bottom: 1px solid var(--gray-100); }
+  .cmt-item:last-child { border-bottom: none; }
+  .cmt-row { display: flex; gap: 10px; align-items: flex-start; }
+  .cmt-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--primary-bg); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: var(--primary); flex-shrink: 0; }
+  .cmt-main { flex: 1; min-width: 0; }
+  .cmt-head { display: flex; align-items: center; gap: 6px; margin-bottom: 3px; }
+  .cmt-name { font-size: 13px; font-weight: 600; color: var(--dark); }
+  .cmt-name.mine { color: var(--primary); }
+  .cmt-date { font-size: 11px; color: var(--gray-500); }
+  .cmt-mine-badge { font-size: 9px; background: var(--primary-bg); color: var(--primary); padding: 1px 5px; border-radius: 3px; font-weight: 600; }
+  .cmt-text { font-size: 13px; color: var(--gray-700); line-height: 1.6; margin-bottom: 6px; }
+  .cmt-text img { max-width: 200px; border-radius: 6px; margin-top: 6px; cursor: pointer; }
+  .cmt-actions { display: flex; gap: 4px; }
+  .cmt-actions button { font-size: 11px; color: var(--gray-500); background: none; border: none; cursor: pointer; padding: 2px 6px; border-radius: 4px; font-family: inherit; transition: all 0.15s; }
+  .cmt-actions button:hover { color: var(--primary); background: var(--primary-bg); }
+  .cmt-actions .cmt-del:hover { color: var(--red); background: #fce4ec; }
+  /* 대댓글 */
+  .cmt-replies { margin-left: 42px; margin-top: 8px; }
+  .cmt-replies .cmt-item { padding: 10px 0; }
+  .cmt-replies .cmt-avatar { width: 26px; height: 26px; font-size: 11px; }
+  .cmt-reply-form { margin-left: 42px; margin-top: 8px; display: flex; gap: 8px; align-items: flex-start; }
+  .cmt-reply-form textarea { flex: 1; padding: 8px 12px; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); font-size: 12px; font-family: inherit; resize: none; min-height: 36px; outline: none; }
+  .cmt-reply-form textarea:focus { border-color: var(--primary); }
+  .cmt-reply-form .cmt-reply-actions { display: flex; flex-direction: column; gap: 4px; }
+  .cmt-reply-form button { padding: 4px 10px; font-size: 11px; border-radius: 4px; border: none; font-family: inherit; cursor: pointer; }
+  .cmt-reply-form .cmt-reply-submit { background: var(--primary); color: white; }
+  .cmt-reply-form .cmt-reply-cancel { background: var(--gray-100); color: var(--gray-600); }
+  /* 수정 폼 */
+  .cmt-edit-form textarea { width: 100%; padding: 8px 12px; border: 1px solid var(--primary); border-radius: var(--radius-sm); font-size: 13px; font-family: inherit; resize: none; min-height: 40px; outline: none; margin-bottom: 6px; }
+  .cmt-edit-actions { display: flex; gap: 6px; }
+  .cmt-edit-actions button { padding: 4px 12px; font-size: 11px; border-radius: 4px; border: none; font-family: inherit; cursor: pointer; }
+  .cmt-edit-actions .cmt-edit-save { background: var(--primary); color: white; }
+  .cmt-edit-actions .cmt-edit-cancel { background: var(--gray-100); color: var(--gray-600); }
 
   /* OLD yj classes kept for home feed */
   .yj { background: var(--dark-card); border-radius: var(--radius); overflow: hidden; margin-bottom: 14px; transition: all 0.2s; cursor: pointer; }
@@ -663,7 +706,7 @@
 <!-- YAJANG (리스트 + 상세) -->
 <!-- ============================================================ -->
 <div class="page-section" id="page-yajang">
-<div class="container" style="display:block;">
+<div class="container full">
   <!-- 리스트 뷰 -->
   <div id="yjListView">
     <div class="yjl-wrap">
@@ -698,7 +741,7 @@
 <!-- 경기센터 (대회별 구성) -->
 <!-- ============================================================ -->
 <div class="page-section" id="page-kbsa">
-<div class="container" style="display:block;">
+<div class="container full">
   <div class="sec-hd"><h3>&#127919; 경기센터</h3></div>
 
   <!-- 카테고리 탭 -->
@@ -1011,7 +1054,7 @@
 <!-- BOARD -->
 <!-- ============================================================ -->
 <div class="page-section" id="page-board">
-<div class="container" style="display:block;">
+<div class="container full">
   <div class="sec-hd"><h3>&#128172; 엘리트야구 게시판</h3><button class="btn btn-primary">&#9998; 글쓰기</button></div>
   <div class="bt"><button class="active">전체</button><button>자유게시판</button><button>학부모</button><button>선수정보</button><button>대회/입시</button></div>
   <div class="bl">
@@ -1033,7 +1076,7 @@
 <!-- STANDINGS -->
 <!-- ============================================================ -->
 <div class="page-section" id="page-standings">
-<div class="container" style="display:block;">
+<div class="container full">
   <div class="sec-hd"><h3>&#127942; 리그 순위</h3></div>
   <div class="kf">
     <select class="fs"><option>2026 고교야구 주말리그 (전반기)</option><option>2026 고교야구 주말리그 (후반기)</option></select>
@@ -1189,16 +1232,167 @@
     yjRenderList();
   }
 
+  // 댓글 데이터 (로컬 상태)
+  let cmtIdSeq=100;
+  function deepCopyCmts(cmts){
+    if(!cmts) return [];
+    return cmts.map(c=>({...c, id:c.id||cmtIdSeq++, mine:c.mine||false, img:c.img||'', replies:c.replies?c.replies.map(r=>({...r, id:r.id||cmtIdSeq++, mine:r.mine||false, img:r.img||''})):[] }));
+  }
+  let curDetailIdx=-1;
+  let curCmts=[];
+
+  function cmtRender(){
+    const wrap=document.getElementById('cmtList');
+    if(!wrap) return;
+    let html='';
+    curCmts.forEach(c=>{
+      let repliesHtml='';
+      if(c.replies && c.replies.length){
+        repliesHtml='<div class="cmt-replies">';
+        c.replies.forEach(r=>{
+          repliesHtml+=cmtItemHtml(r,true);
+        });
+        repliesHtml+='</div>';
+      }
+      html+=cmtItemHtml(c,false)+repliesHtml;
+    });
+    wrap.innerHTML=html;
+    document.getElementById('cmtCount').textContent=curCmts.reduce((a,c)=>a+1+(c.replies?c.replies.length:0),0);
+  }
+
+  function cmtItemHtml(c,isReply){
+    const mineTag=c.mine?'<span class="cmt-mine-badge">내 댓글</span>':'';
+    const nameClass=c.mine?'cmt-name mine':'cmt-name';
+    const imgHtml=c.img?`<img src="${c.img}" onclick="openLB2('${c.img}')">`:'';
+    const editDel=c.mine?`<button onclick="cmtEdit(${c.id})">수정</button><button class="cmt-del" onclick="cmtDel(${c.id})">삭제</button>`:'';
+    const replyBtn=isReply?'':`<button onclick="cmtReplyToggle(${c.id})">답글</button>`;
+    return `<div class="cmt-item" id="cmt-${c.id}">
+      <div class="cmt-row">
+        <div class="cmt-avatar">${c.name[0]}</div>
+        <div class="cmt-main">
+          <div class="cmt-head"><span class="${nameClass}">${c.name}</span>${mineTag}<span class="cmt-date">${c.date}</span></div>
+          <div class="cmt-text" id="cmtText-${c.id}">${c.text}${imgHtml}</div>
+          <div class="cmt-actions">${replyBtn}${editDel}</div>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  // 댓글 쓰기
+  function cmtAdd(){
+    const ta=document.getElementById('cmtWriteTA');
+    const text=ta.value.trim();
+    if(!text) return;
+    const imgPrev=document.getElementById('cmtImgPreview');
+    const imgs=imgPrev?imgPrev.querySelectorAll('img'):[];
+    let imgSrc='';
+    if(imgs.length) imgSrc=imgs[0].src;
+    curCmts.push({id:cmtIdSeq++, name:'나', text:text, date:'방금 전', mine:true, img:imgSrc, replies:[]});
+    ta.value='';
+    if(imgPrev) imgPrev.innerHTML='';
+    cmtRender();
+  }
+
+  // 이미지 첨부 (데모: 파일 선택 시뮬레이션)
+  function cmtImgAttach(inputId){
+    const input=document.getElementById(inputId);
+    if(!input){
+      // 메인 댓글용
+      let fi=document.getElementById('cmtFileInput');
+      if(!fi){
+        fi=document.createElement('input');fi.type='file';fi.accept='image/*';fi.id='cmtFileInput';fi.style.display='none';
+        fi.onchange=function(){
+          if(fi.files&&fi.files[0]){
+            const reader=new FileReader();
+            reader.onload=function(e){
+              const prev=document.getElementById('cmtImgPreview');
+              prev.innerHTML=`<div class="cmt-img-rm"><img src="${e.target.result}"><button class="cmt-img-rm-btn" onclick="this.parentElement.remove()">&#10005;</button></div>`;
+            };
+            reader.readAsDataURL(fi.files[0]);
+          }
+        };
+        document.body.appendChild(fi);
+      }
+      fi.click();
+    }
+  }
+
+  // 대댓글 토글
+  function cmtReplyToggle(id){
+    const existing=document.getElementById('replyForm-'+id);
+    if(existing){existing.remove();return;}
+    const item=document.getElementById('cmt-'+id);
+    // 기존 답글 폼 모두 제거
+    document.querySelectorAll('.cmt-reply-form').forEach(f=>f.remove());
+    const form=document.createElement('div');
+    form.className='cmt-reply-form';
+    form.id='replyForm-'+id;
+    form.innerHTML=`<textarea placeholder="답글을 입력하세요..." id="replyTA-${id}"></textarea>
+      <div class="cmt-reply-actions"><button class="cmt-reply-submit" onclick="cmtReplyAdd(${id})">등록</button><button class="cmt-reply-cancel" onclick="document.getElementById('replyForm-${id}').remove()">취소</button></div>`;
+    item.after(form);
+    document.getElementById('replyTA-'+id).focus();
+  }
+
+  function cmtReplyAdd(parentId){
+    const ta=document.getElementById('replyTA-'+parentId);
+    const text=ta.value.trim();
+    if(!text) return;
+    const parent=curCmts.find(c=>c.id===parentId);
+    if(parent){
+      if(!parent.replies) parent.replies=[];
+      parent.replies.push({id:cmtIdSeq++, name:'나', text:text, date:'방금 전', mine:true, img:'', replies:[]});
+    }
+    cmtRender();
+  }
+
+  // 수정
+  function cmtEdit(id){
+    const c=findCmt(id);
+    if(!c) return;
+    const textEl=document.getElementById('cmtText-'+id);
+    const origText=c.text;
+    textEl.innerHTML=`<div class="cmt-edit-form"><textarea id="editTA-${id}">${origText}</textarea><div class="cmt-edit-actions"><button class="cmt-edit-save" onclick="cmtEditSave(${id})">저장</button><button class="cmt-edit-cancel" onclick="cmtRender()">취소</button></div></div>`;
+    document.getElementById('editTA-'+id).focus();
+  }
+
+  function cmtEditSave(id){
+    const c=findCmt(id);
+    if(!c) return;
+    const ta=document.getElementById('editTA-'+id);
+    c.text=ta.value.trim()||c.text;
+    cmtRender();
+  }
+
+  // 삭제
+  function cmtDel(id){
+    if(!confirm('댓글을 삭제하시겠습니까?')) return;
+    curCmts=curCmts.filter(c=>{
+      if(c.id===id) return false;
+      if(c.replies) c.replies=c.replies.filter(r=>r.id!==id);
+      return true;
+    });
+    cmtRender();
+  }
+
+  function findCmt(id){
+    for(let c of curCmts){
+      if(c.id===id) return c;
+      if(c.replies){for(let r of c.replies){if(r.id===id) return r;}}
+    }
+    return null;
+  }
+
   function yjDetail(idx){
+    curDetailIdx=idx;
     const d=yjData[idx];
-    let cmtsHtml='';
-    if(d.cmts){d.cmts.forEach(c=>{
-      cmtsHtml+=`<div class="yjd-cmt"><div class="yjd-cmt-avatar">${c.name[0]}</div><div class="yjd-cmt-body"><span class="yjd-cmt-name">${c.name}</span><span class="yjd-cmt-date">${c.date}</span><div class="yjd-cmt-text">${c.text}</div></div></div>`;
-    });}
+    // 댓글 데이터 복사
+    curCmts=deepCopyCmts(d.cmts);
+    // 첫 댓글에 mine:true 마킹 (데모용 - 3번째가 내 댓글)
+    if(curCmts.length>=3) curCmts[2].mine=true;
+
     document.getElementById('yjDetailContent').innerHTML=`
       <button class="yjd-back" onclick="yjBack()">&#8592; 목록으로</button>
       <div class="yjd-article">
-        <img class="yjd-hero" src="${d.img}" onclick="openLB2('${d.img}')" alt="">
         <div class="yjd-header">
           <div class="yjd-cat">${d.catName}</div>
           <div class="yjd-title">${d.title}</div>
@@ -1218,10 +1412,24 @@
           <button class="yjd-share">&#128279; 공유</button>
         </div>
         <div class="yjd-comments">
-          <h4>&#128172; 댓글 ${d.cmts?d.cmts.length:0}개</h4>
-          ${cmtsHtml}
+          <h4>&#128172; 댓글 <span id="cmtCount">${curCmts.length}</span>개</h4>
+          <!-- 댓글 쓰기 -->
+          <div class="cmt-write">
+            <div class="cmt-write-avatar">나</div>
+            <div class="cmt-write-box">
+              <textarea id="cmtWriteTA" placeholder="댓글을 입력하세요..." rows="2"></textarea>
+              <div id="cmtImgPreview" class="cmt-img-preview"></div>
+              <div class="cmt-write-bar">
+                <button class="cmt-img-btn" onclick="cmtImgAttach()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg> 이미지</button>
+                <button class="cmt-submit" onclick="cmtAdd()">등록</button>
+              </div>
+            </div>
+          </div>
+          <!-- 댓글 목록 -->
+          <div id="cmtList"></div>
         </div>
       </div>`;
+    cmtRender();
     document.getElementById('yjListView').style.display='none';
     document.getElementById('yjDetailView').style.display='block';
     window.scrollTo({top:0,behavior:'smooth'});
